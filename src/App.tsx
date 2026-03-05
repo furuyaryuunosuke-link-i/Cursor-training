@@ -2,15 +2,28 @@ import { useState, useEffect } from 'react'
 import { Layout } from './components/Layout'
 import { type TabId } from './components/TabNav'
 import { IntroPanel } from './components/panels/IntroPanel'
+import { IntroStepView } from './components/panels/IntroStepView'
 import { IntermediatePanel } from './components/panels/IntermediatePanel'
 import { AdvancedPanel } from './components/panels/AdvancedPanel'
 import { GitHubPanel } from './components/panels/GitHubPanel'
+import { isValidIntroStepId } from './data/introSteps'
 
 const TAB_STORAGE_KEY = 'cursor-training-active-tab'
+const INTRO_HASH_PREFIX = '#intro'
+
+function parseIntroStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== INTRO_HASH_PREFIX && !h.startsWith(INTRO_HASH_PREFIX + '/')) return null
+  if (h === INTRO_HASH_PREFIX || h === INTRO_HASH_PREFIX + '/') return null
+  const stepId = h.slice(INTRO_HASH_PREFIX.length + 1)
+  return isValidIntroStepId(stepId) ? stepId : null
+}
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabId>('intro')
   const [isDark, setIsDark] = useState(true)
+  const [introStepId, setIntroStepId] = useState<string | null>(parseIntroStepIdFromHash)
 
   useEffect(() => {
     const stored = localStorage.getItem(TAB_STORAGE_KEY) as TabId | null
@@ -28,8 +41,24 @@ function App() {
     document.documentElement.classList.add(isDark ? 'dark' : 'light')
   }, [isDark])
 
+  useEffect(() => {
+    if (activeTab !== 'intro') return
+    const sync = () => setIntroStepId(parseIntroStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
   const handleTabChange = (tab: TabId) => setActiveTab(tab)
   const handleThemeToggle = () => setIsDark((prev) => !prev)
+
+  const handleIntroStepSelect = (stepId: string) => {
+    window.location.hash = INTRO_HASH_PREFIX + '/' + stepId
+  }
+
+  const handleIntroNavigateToStep = (stepId: string | null) => {
+    window.location.hash = stepId ? INTRO_HASH_PREFIX + '/' + stepId : INTRO_HASH_PREFIX
+  }
 
   return (
     <Layout
@@ -38,7 +67,15 @@ function App() {
       isDark={isDark}
       onThemeToggle={handleThemeToggle}
     >
-      {activeTab === 'intro' && <IntroPanel />}
+      {activeTab === 'intro' &&
+        (introStepId ? (
+          <IntroStepView
+            stepId={introStepId}
+            onNavigateToStep={handleIntroNavigateToStep}
+          />
+        ) : (
+          <IntroPanel onStepSelect={handleIntroStepSelect} />
+        ))}
       {activeTab === 'intermediate' && <IntermediatePanel />}
       {activeTab === 'advanced' && <AdvancedPanel />}
       {activeTab === 'github' && <GitHubPanel />}
