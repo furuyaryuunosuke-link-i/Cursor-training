@@ -6,6 +6,8 @@ export type TabId =
   | 'webService'
   | 'frontend'
   | 'github'
+  | 'python'
+  | 'nodejs'
   | 'glossary'
 
 const TABS: { id: TabId; label: string }[] = [
@@ -16,12 +18,15 @@ const TABS: { id: TabId; label: string }[] = [
   { id: 'webService', label: 'Webサービス' },
   { id: 'frontend', label: 'フロントエンド' },
   { id: 'github', label: 'GitHub' },
+  { id: 'python', label: 'Python' },
+  { id: 'nodejs', label: 'Node.js' },
   { id: 'glossary', label: '用語集' },
 ]
 
 const TAB_GROUPS: { label: string; tabIds: TabId[] }[] = [
   { label: 'まずはここから', tabIds: ['intro', 'intermediate', 'advanced'] },
-  { label: '発展', tabIds: ['security', 'webService', 'frontend', 'github'] },
+  { label: '発展', tabIds: ['security', 'webService', 'frontend'] },
+  { label: 'ツール', tabIds: ['github', 'python', 'nodejs'] },
   { label: '参考', tabIds: ['glossary'] },
 ]
 

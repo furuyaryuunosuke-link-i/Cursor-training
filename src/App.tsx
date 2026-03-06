@@ -17,6 +17,7 @@ import { FrontendStepView } from './components/panels/FrontendStepView'
 import { GitHubPanel } from './components/panels/GitHubPanel'
 import { GitHubStepView } from './components/panels/GitHubStepView'
 import { GlossaryPanel } from './components/panels/GlossaryPanel'
+import { ToolPlaceholderPanel } from './components/panels/ToolPlaceholderPanel'
 import { GlossaryNavigationProvider } from './contexts/GlossaryNavigationContext'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
@@ -34,6 +35,8 @@ const SECURITY_HASH_PREFIX = '#security'
 const WEB_SERVICE_HASH_PREFIX = '#webService'
 const FRONTEND_HASH_PREFIX = '#frontend'
 const GITHUB_HASH_PREFIX = '#github'
+const PYTHON_HASH_PREFIX = '#python'
+const NODEJS_HASH_PREFIX = '#nodejs'
 const GLOSSARY_HASH_PREFIX = '#glossary'
 
 function parseIntroStepIdFromHash(): string | null {
@@ -109,6 +112,8 @@ function getTabFromHash(): TabId | null {
   if (h.startsWith(WEB_SERVICE_HASH_PREFIX)) return 'webService'
   if (h.startsWith(FRONTEND_HASH_PREFIX)) return 'frontend'
   if (h.startsWith(GITHUB_HASH_PREFIX)) return 'github'
+  if (h.startsWith(PYTHON_HASH_PREFIX)) return 'python'
+  if (h.startsWith(NODEJS_HASH_PREFIX)) return 'nodejs'
   if (h.startsWith(GLOSSARY_HASH_PREFIX)) return 'glossary'
   return null
 }
@@ -154,6 +159,8 @@ function App() {
         'webService',
         'frontend',
         'github',
+        'python',
+        'nodejs',
         'glossary',
       ].includes(stored)
     ) {
@@ -382,6 +389,8 @@ function App() {
         ) : (
           <GitHubPanel onStepSelect={handleGitHubStepSelect} />
         ))}
+      {activeTab === 'python' && <ToolPlaceholderPanel title="Python" />}
+      {activeTab === 'nodejs' && <ToolPlaceholderPanel title="Node.js" />}
       {activeTab === 'glossary' && <GlossaryPanel />}
     </Layout>
     </GlossaryNavigationProvider>
