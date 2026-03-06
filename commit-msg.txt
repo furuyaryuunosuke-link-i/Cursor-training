@@ -1,7 +1,0 @@
-用語集・縦タブ・チップ化まわりの改善
-
-- 縦タブ構成（まずはここから / 発展 / 参考）、用語クリックで用語集へ遷移
-- GlossaryNavigationContext と GlossaryTerm のクリックで用語集タブ＋該当語へ
-- 用語集説明文の他用語をリンク化し、文脈チェック（ログ/プログラミング、パスワード等）を追加
-- 用語集内クリックでアコーディオンを開く・フィルタ解除してからスクロール、scroll-margin でヘッダーと被らないように調整
-- 本文の用語チップ化の漏れを修正（intro/security/webService/frontend/advanced/github）
