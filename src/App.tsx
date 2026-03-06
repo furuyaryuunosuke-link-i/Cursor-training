@@ -7,15 +7,27 @@ import { IntermediatePanel } from './components/panels/IntermediatePanel'
 import { IntermediateStepView } from './components/panels/IntermediateStepView'
 import { AdvancedPanel } from './components/panels/AdvancedPanel'
 import { AdvancedStepView } from './components/panels/AdvancedStepView'
+import { SecurityPanel } from './components/panels/SecurityPanel'
+import { SecurityStepView } from './components/panels/SecurityStepView'
+import { WebServicePanel } from './components/panels/WebServicePanel'
+import { WebServiceStepView } from './components/panels/WebServiceStepView'
+import { FrontendPanel } from './components/panels/FrontendPanel'
+import { FrontendStepView } from './components/panels/FrontendStepView'
 import { GitHubPanel } from './components/panels/GitHubPanel'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
 import { isValidAdvancedStepId } from './data/advancedSteps'
+import { isValidSecurityStepId } from './data/securitySteps'
+import { isValidWebServiceStepId } from './data/webServiceSteps'
+import { isValidFrontendStepId } from './data/frontendSteps'
 
 const TAB_STORAGE_KEY = 'cursor-training-active-tab'
 const INTRO_HASH_PREFIX = '#intro'
 const INTERMEDIATE_HASH_PREFIX = '#intermediate'
 const ADVANCED_HASH_PREFIX = '#advanced'
+const SECURITY_HASH_PREFIX = '#security'
+const WEB_SERVICE_HASH_PREFIX = '#webService'
+const FRONTEND_HASH_PREFIX = '#frontend'
 
 function parseIntroStepIdFromHash(): string | null {
   if (typeof window === 'undefined') return null
@@ -44,12 +56,42 @@ function parseAdvancedStepIdFromHash(): string | null {
   return isValidAdvancedStepId(stepId) ? stepId : null
 }
 
+function parseSecurityStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== SECURITY_HASH_PREFIX && !h.startsWith(SECURITY_HASH_PREFIX + '/')) return null
+  if (h === SECURITY_HASH_PREFIX || h === SECURITY_HASH_PREFIX + '/') return null
+  const stepId = h.slice(SECURITY_HASH_PREFIX.length + 1)
+  return isValidSecurityStepId(stepId) ? stepId : null
+}
+
+function parseWebServiceStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== WEB_SERVICE_HASH_PREFIX && !h.startsWith(WEB_SERVICE_HASH_PREFIX + '/')) return null
+  if (h === WEB_SERVICE_HASH_PREFIX || h === WEB_SERVICE_HASH_PREFIX + '/') return null
+  const stepId = h.slice(WEB_SERVICE_HASH_PREFIX.length + 1)
+  return isValidWebServiceStepId(stepId) ? stepId : null
+}
+
+function parseFrontendStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== FRONTEND_HASH_PREFIX && !h.startsWith(FRONTEND_HASH_PREFIX + '/')) return null
+  if (h === FRONTEND_HASH_PREFIX || h === FRONTEND_HASH_PREFIX + '/') return null
+  const stepId = h.slice(FRONTEND_HASH_PREFIX.length + 1)
+  return isValidFrontendStepId(stepId) ? stepId : null
+}
+
 function getTabFromHash(): TabId | null {
   if (typeof window === 'undefined') return null
   const h = window.location.hash
   if (h.startsWith(INTRO_HASH_PREFIX)) return 'intro'
   if (h.startsWith(INTERMEDIATE_HASH_PREFIX)) return 'intermediate'
   if (h.startsWith(ADVANCED_HASH_PREFIX)) return 'advanced'
+  if (h.startsWith(SECURITY_HASH_PREFIX)) return 'security'
+  if (h.startsWith(WEB_SERVICE_HASH_PREFIX)) return 'webService'
+  if (h.startsWith(FRONTEND_HASH_PREFIX)) return 'frontend'
   return null
 }
 
@@ -63,6 +105,15 @@ function App() {
   const [advancedStepId, setAdvancedStepId] = useState<string | null>(
     parseAdvancedStepIdFromHash
   )
+  const [securityStepId, setSecurityStepId] = useState<string | null>(
+    parseSecurityStepIdFromHash
+  )
+  const [webServiceStepId, setWebServiceStepId] = useState<string | null>(
+    parseWebServiceStepIdFromHash
+  )
+  const [frontendStepId, setFrontendStepId] = useState<string | null>(
+    parseFrontendStepIdFromHash
+  )
 
   // 直接URLで開いたとき（#intro/1-1, #advanced/2-1 など）は hash からタブを決定
   useEffect(() => {
@@ -72,7 +123,18 @@ function App() {
       return
     }
     const stored = localStorage.getItem(TAB_STORAGE_KEY) as TabId | null
-    if (stored && ['intro', 'intermediate', 'advanced', 'github'].includes(stored)) {
+    if (
+      stored &&
+      [
+        'intro',
+        'intermediate',
+        'advanced',
+        'security',
+        'webService',
+        'frontend',
+        'github',
+      ].includes(stored)
+    ) {
       setActiveTab(stored)
     }
   }, [])
@@ -110,35 +172,101 @@ function App() {
     return () => window.removeEventListener('hashchange', sync)
   }, [activeTab])
 
+  useEffect(() => {
+    if (activeTab !== 'security') return
+    const sync = () => setSecurityStepId(parseSecurityStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
+  useEffect(() => {
+    if (activeTab !== 'webService') return
+    const sync = () => setWebServiceStepId(parseWebServiceStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
+  useEffect(() => {
+    if (activeTab !== 'frontend') return
+    const sync = () => setFrontendStepId(parseFrontendStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
   const handleTabChange = (tab: TabId) => setActiveTab(tab)
   const handleThemeToggle = () => setIsDark((prev) => !prev)
 
   const handleIntroStepSelect = (stepId: string) => {
+    setIntroStepId(stepId)
     window.location.hash = INTRO_HASH_PREFIX + '/' + stepId
   }
 
   const handleIntroNavigateToStep = (stepId: string | null) => {
+    setIntroStepId(stepId)
     window.location.hash = stepId ? INTRO_HASH_PREFIX + '/' + stepId : INTRO_HASH_PREFIX
   }
 
   const handleIntermediateStepSelect = (stepId: string) => {
+    setIntermediateStepId(stepId)
     window.location.hash = INTERMEDIATE_HASH_PREFIX + '/' + stepId
   }
 
   const handleIntermediateNavigateToStep = (stepId: string | null) => {
+    setIntermediateStepId(stepId)
     window.location.hash = stepId
       ? INTERMEDIATE_HASH_PREFIX + '/' + stepId
       : INTERMEDIATE_HASH_PREFIX
   }
 
   const handleAdvancedStepSelect = (stepId: string) => {
+    setAdvancedStepId(stepId)
     window.location.hash = ADVANCED_HASH_PREFIX + '/' + stepId
   }
 
   const handleAdvancedNavigateToStep = (stepId: string | null) => {
+    setAdvancedStepId(stepId)
     window.location.hash = stepId
       ? ADVANCED_HASH_PREFIX + '/' + stepId
       : ADVANCED_HASH_PREFIX
+  }
+
+  const handleSecurityStepSelect = (stepId: string) => {
+    setSecurityStepId(stepId)
+    window.location.hash = SECURITY_HASH_PREFIX + '/' + stepId
+  }
+
+  const handleSecurityNavigateToStep = (stepId: string | null) => {
+    setSecurityStepId(stepId)
+    window.location.hash = stepId
+      ? SECURITY_HASH_PREFIX + '/' + stepId
+      : SECURITY_HASH_PREFIX
+  }
+
+  const handleWebServiceStepSelect = (stepId: string) => {
+    setWebServiceStepId(stepId)
+    window.location.hash = WEB_SERVICE_HASH_PREFIX + '/' + stepId
+  }
+
+  const handleWebServiceNavigateToStep = (stepId: string | null) => {
+    setWebServiceStepId(stepId)
+    window.location.hash = stepId
+      ? WEB_SERVICE_HASH_PREFIX + '/' + stepId
+      : WEB_SERVICE_HASH_PREFIX
+  }
+
+  const handleFrontendStepSelect = (stepId: string) => {
+    setFrontendStepId(stepId)
+    window.location.hash = FRONTEND_HASH_PREFIX + '/' + stepId
+  }
+
+  const handleFrontendNavigateToStep = (stepId: string | null) => {
+    setFrontendStepId(stepId)
+    window.location.hash = stepId
+      ? FRONTEND_HASH_PREFIX + '/' + stepId
+      : FRONTEND_HASH_PREFIX
   }
 
   return (
@@ -174,6 +302,33 @@ function App() {
           />
         ) : (
           <AdvancedPanel onStepSelect={handleAdvancedStepSelect} />
+        ))}
+      {activeTab === 'security' &&
+        (securityStepId ? (
+          <SecurityStepView
+            stepId={securityStepId}
+            onNavigateToStep={handleSecurityNavigateToStep}
+          />
+        ) : (
+          <SecurityPanel onStepSelect={handleSecurityStepSelect} />
+        ))}
+      {activeTab === 'webService' &&
+        (webServiceStepId ? (
+          <WebServiceStepView
+            stepId={webServiceStepId}
+            onNavigateToStep={handleWebServiceNavigateToStep}
+          />
+        ) : (
+          <WebServicePanel onStepSelect={handleWebServiceStepSelect} />
+        ))}
+      {activeTab === 'frontend' &&
+        (frontendStepId ? (
+          <FrontendStepView
+            stepId={frontendStepId}
+            onNavigateToStep={handleFrontendNavigateToStep}
+          />
+        ) : (
+          <FrontendPanel onStepSelect={handleFrontendStepSelect} />
         ))}
       {activeTab === 'github' && <GitHubPanel />}
     </Layout>

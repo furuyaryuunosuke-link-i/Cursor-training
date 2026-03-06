@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import { INTRO_CHAPTERS } from '../../data/introSteps'
+import { SECURITY_CHAPTERS } from '../../data/securitySteps'
 import { useStepCompletion } from '../../hooks/useStepCompletion'
 
-type IntroPanelProps = {
+type SecurityPanelProps = {
   onStepSelect: (stepId: string) => void
 }
 
-export function IntroPanel({ onStepSelect }: IntroPanelProps) {
+export function SecurityPanel({ onStepSelect }: SecurityPanelProps) {
   const { completed, isStepCompleted, toggleStep, setMany } = useStepCompletion(
-    'intro-step-completion'
+    'security-step-completion'
   )
   const [flashChapters, setFlashChapters] = useState<Record<string, boolean>>({})
   const prevAllCompletedRef = useRef<Record<string, boolean>>({})
@@ -17,7 +17,7 @@ export function IntroPanel({ onStepSelect }: IntroPanelProps) {
     const prevAllCompleted = prevAllCompletedRef.current
     const nextAllCompleted: Record<string, boolean> = {}
 
-    for (const chapter of INTRO_CHAPTERS) {
+    for (const chapter of SECURITY_CHAPTERS) {
       const allDone =
         chapter.steps.length > 0 &&
         chapter.steps.every((step) => !!completed[step.id])
@@ -52,12 +52,12 @@ export function IntroPanel({ onStepSelect }: IntroPanelProps) {
 
   return (
     <section
-      id="panel-intro"
+      id="panel-security"
       role="tabpanel"
-      aria-labelledby="tab-intro"
+      aria-labelledby="tab-security"
       className="space-y-8"
     >
-      {INTRO_CHAPTERS.map((chapter) => {
+      {SECURITY_CHAPTERS.map((chapter) => {
         const stepIds = chapter.steps.map((step) => step.id)
         const completedCount = stepIds.filter((id) => !!completed[id]).length
         const allCompleted = stepIds.length > 0 && completedCount === stepIds.length

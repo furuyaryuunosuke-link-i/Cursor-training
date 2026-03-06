@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import { INTRO_CHAPTERS } from '../../data/introSteps'
+import { WEB_SERVICE_CHAPTERS } from '../../data/webServiceSteps'
 import { useStepCompletion } from '../../hooks/useStepCompletion'
 
-type IntroPanelProps = {
+type WebServicePanelProps = {
   onStepSelect: (stepId: string) => void
 }
 
-export function IntroPanel({ onStepSelect }: IntroPanelProps) {
+export function WebServicePanel({ onStepSelect }: WebServicePanelProps) {
   const { completed, isStepCompleted, toggleStep, setMany } = useStepCompletion(
-    'intro-step-completion'
+    'web-service-step-completion'
   )
   const [flashChapters, setFlashChapters] = useState<Record<string, boolean>>({})
   const prevAllCompletedRef = useRef<Record<string, boolean>>({})
@@ -17,7 +17,7 @@ export function IntroPanel({ onStepSelect }: IntroPanelProps) {
     const prevAllCompleted = prevAllCompletedRef.current
     const nextAllCompleted: Record<string, boolean> = {}
 
-    for (const chapter of INTRO_CHAPTERS) {
+    for (const chapter of WEB_SERVICE_CHAPTERS) {
       const allDone =
         chapter.steps.length > 0 &&
         chapter.steps.every((step) => !!completed[step.id])
@@ -52,12 +52,12 @@ export function IntroPanel({ onStepSelect }: IntroPanelProps) {
 
   return (
     <section
-      id="panel-intro"
+      id="panel-webService"
       role="tabpanel"
-      aria-labelledby="tab-intro"
+      aria-labelledby="tab-webService"
       className="space-y-8"
     >
-      {INTRO_CHAPTERS.map((chapter) => {
+      {WEB_SERVICE_CHAPTERS.map((chapter) => {
         const stepIds = chapter.steps.map((step) => step.id)
         const completedCount = stepIds.filter((id) => !!completed[id]).length
         const allCompleted = stepIds.length > 0 && completedCount === stepIds.length

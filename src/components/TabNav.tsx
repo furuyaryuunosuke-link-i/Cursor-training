@@ -1,9 +1,19 @@
-export type TabId = 'intro' | 'intermediate' | 'advanced' | 'github'
+export type TabId =
+  | 'intro'
+  | 'intermediate'
+  | 'advanced'
+  | 'security'
+  | 'webService'
+  | 'frontend'
+  | 'github'
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'intro', label: '入門' },
   { id: 'intermediate', label: '中級' },
   { id: 'advanced', label: '上級' },
+  { id: 'security', label: 'セキュリティ' },
+  { id: 'webService', label: 'Webサービス' },
+  { id: 'frontend', label: 'フロントエンド' },
   { id: 'github', label: 'GitHub' },
 ]
 
