@@ -60,14 +60,14 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
           </p>
           <h3>完成イメージ</h3>
           <p>
-            <GlossaryTerm name="cursor">Cursor</GlossaryTerm> に指示を出して、ブラウザで開けるひとつのページができあがります。
+            <GlossaryTerm name="cursor">Cursor</GlossaryTerm> に指示を出して、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>で開けるひとつのページができあがります。
             <GlossaryTerm name="bentoGrid">Bento Grid</GlossaryTerm>・
             <GlossaryTerm name="glassmorphism">グラスモーフィズム</GlossaryTerm>・タスクリスト・チェックで取り消し線・ダークモード切替・
             <GlossaryTerm name="localStorage">localStorage</GlossaryTerm> で保存、といった要素を含めていきます。
           </p>
           <h3>達成条件（入門が終わったとき）</h3>
           <ul>
-            <li>ブラウザで開いて表示できる。</li>
+            <li><GlossaryTerm name="browser">ブラウザ</GlossaryTerm>で開いて表示できる。</li>
             <li>チェック・テーマ切替が動く。</li>
             <li>リロード後もタスクが残る。</li>
           </ul>
@@ -79,7 +79,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
         <div className="space-y-4">
           <p>
             <strong><GlossaryTerm name="cursor">Cursor</GlossaryTerm></strong>
-            は、AI（大規模言語モデル）を組み込んだコードエディタです。コードの生成・編集・説明を自然な言葉で指示できます。
+            は、AI（大規模言語モデル）を組み込んだ<GlossaryTerm name="code">コード</GlossaryTerm>エディタです。<GlossaryTerm name="code">コード</GlossaryTerm>の生成・編集・説明を自然な言葉で指示できます。
           </p>
           <p>
             <a href="https://cursor.com/ja" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 underline hover:no-underline">
@@ -100,12 +100,12 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
           <p><GlossaryTerm name="cursor">Cursor</GlossaryTerm> の主なエリアは次のとおりです。</p>
           <ul>
             <li>
-              <strong><GlossaryTerm name="editor">エディタ</GlossaryTerm></strong>：コードを書く・編集する中央のエリア。
+              <strong><GlossaryTerm name="editor">エディタ</GlossaryTerm></strong>：<GlossaryTerm name="code">コード</GlossaryTerm>を書く・編集する中央のエリア。
             </li>
             <li>
               <strong><GlossaryTerm name="chat">チャット</GlossaryTerm> / <GlossaryTerm name="composer">Composer</GlossaryTerm></strong>
               ：AI に「〇〇を作って」「ここを直して」と指示を書く場所。ここに文章で伝えると、AI
-              がコードを提案してくれます。
+              が<GlossaryTerm name="code">コード</GlossaryTerm>を提案してくれます。
             </li>
             <li>
               <strong><GlossaryTerm name="terminal">ターミナル</GlossaryTerm></strong>：コマンドを実行する場所。のちに <GlossaryTerm name="git">Git</GlossaryTerm>
@@ -149,7 +149,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
             を書いて伝えます。完成文（完成したコード）は渡さず、「含めるとよい要素」だけを書くようにしましょう。
           </p>
           <p className="text-sm text-neutral-600 dark:text-neutral-300">
-            このステップでは、<strong>Cursor を Ask モードにして</strong>、まだコードは生成させません。要件の抜け漏れチェックや書き方の改善だけを AI に手伝ってもらいます。
+            このステップでは、<strong><GlossaryTerm name="cursor">Cursor</GlossaryTerm> を <GlossaryTerm name="askMode">Ask モード</GlossaryTerm>にして</strong>、まだコードは生成させません。要件の抜け漏れチェックや書き方の改善だけを AI に手伝ってもらいます。
           </p>
           <p className="font-medium text-neutral-800 dark:text-neutral-100">
             例：今日のやることページを作りたい。含めるとよい要素
@@ -159,11 +159,11 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
             で保存・サンプルタスク 2〜3 件・ファイルは <GlossaryTerm name="html">HTML</GlossaryTerm> / <GlossaryTerm name="css">CSS</GlossaryTerm> / <GlossaryTerm name="javascript">JS</GlossaryTerm>
             に分ける・日本語・デスクトップ想定。
           </p>
-          <p>このように要素だけを列挙すると、AI が骨組みやコードを提案してくれます。</p>
+          <p>このように要素だけを列挙すると、AI が骨組みや<GlossaryTerm name="code">コード</GlossaryTerm>を提案してくれます。</p>
         </div>,
         {
           imageSrc: '/screenshots/Cursor1-5Ask.png',
-          imageAlt: 'Ask モードで要件レビューのプロンプトを入力している Cursor の画面。',
+          imageAlt: 'Askモードで要件レビューのプロンプトを入力している Cursor の画面。',
           samplePrompt: `今から「今日のやることページ」の要件を書きます。
 
 このステップでは、コードは一切生成しないでください。
@@ -193,7 +193,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
         'ファイル構成を理解する',
         <div className="space-y-4">
           <p>
-            一般的な静的サイトでは、<strong><GlossaryTerm name="indexHtml">index.html</GlossaryTerm></strong> が入口になります。ブラウザはこのファイルを開いて表示します。
+            一般的な静的サイトでは、<strong><GlossaryTerm name="indexHtml">index.html</GlossaryTerm></strong> が入口になります。<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>はこのファイルを開いて表示します。
           </p>
           <p>
             見た目は <strong><GlossaryTerm name="css">CSS</GlossaryTerm></strong>、動き（チェックや保存など）は{' '}
@@ -218,7 +218,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
             に骨組みの <GlossaryTerm name="html">HTML</GlossaryTerm> を生成してもらいます。
           </p>
           <p className="text-sm text-neutral-600 dark:text-neutral-300">
-            ここからは、<strong>Agent モードに切り替えて</strong>、実際に HTML / CSS / JS
+            ここからは、<strong><GlossaryTerm name="agentMode">Agent モード</GlossaryTerm>に切り替えて</strong>、実際に HTML / CSS / JS
             のファイルを生成してもらいます。
           </p>
           <p>
@@ -229,7 +229,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
         </div>,
         {
           imageSrc: '/screenshots/Cursor2-2指示.png',
-          imageAlt: 'Agent モードで骨組み HTML の生成を依頼している Cursor の画面。',
+          imageAlt: 'Agentモードで骨組み HTML の生成を依頼している Cursor の画面。',
           samplePrompt: `さきほど決めた「今日のやることページ」の要件に沿って、最低限表示できる骨組みの HTML を作ってください。
 
 条件:
@@ -261,16 +261,16 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
         '生成されたコードを少し直す',
         <div className="space-y-4">
           <p>
-            AI が作ったコードの<strong>「ここを変えるとこうなる」</strong>を体験してみましょう。
+            AI が作った<GlossaryTerm name="code">コード</GlossaryTerm>の<strong>「ここを変えるとこうなる」</strong>を体験してみましょう。
           </p>
           <ul>
-            <li><GlossaryTerm name="html">HTML</GlossaryTerm> の文言を自分で書き換えて保存し、ブラウザで表示が変わることを確認する。</li>
+            <li><GlossaryTerm name="html">HTML</GlossaryTerm> の文言を自分で書き換えて保存し、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>で表示が変わることを確認する。</li>
             <li>class 名を変えて、スタイルが変わる様子を見る（第3章で <GlossaryTerm name="css">CSS</GlossaryTerm> を触るとより分かります）。</li>
           </ul>
           <p>
-            コードを編集したら、<strong>Ctrl+S で保存</strong>し、ブラウザをリロードして変化を確認してみてください。
+            <GlossaryTerm name="code">コード</GlossaryTerm>を編集したら、<strong>Ctrl+S で保存</strong>し、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>をリロードして変化を確認してみてください。
           </p>
-          <p>コードを「読む・直す」の第一歩として、少しずつ触ってみてください。</p>
+          <p><GlossaryTerm name="code">コード</GlossaryTerm>を「読む・直す」の第一歩として、少しずつ触ってみてください。</p>
         </div>,
         {
           imageSrc: '/screenshots/step-2-4-1.png',
@@ -285,19 +285,19 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
         <div className="space-y-4">
           <p>
             編集した <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm">index.html</code>{' '}
-            をブラウザで開いて表示を確認します。
+            を<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>で開いて表示を確認します。
           </p>
           <ul>
             <li>
               <strong>file:// で開く</strong>：エクスプローラーで index.html
-              をダブルクリックするか、ブラウザのアドレス欄にファイルのパスを入力する。
+              をダブルクリックするか、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>のアドレス欄にファイルのパスを入力する。
             </li>
             <li>
               <strong><GlossaryTerm name="liveServer">Live Server</GlossaryTerm> など</strong>：<GlossaryTerm name="cursor">Cursor</GlossaryTerm> / <GlossaryTerm name="vsCode">VS Code</GlossaryTerm> の拡張機能「Live
               Server」を使うと、保存のたびに自動でリロードされ、確認しやすくなります。
             </li>
           </ul>
-          <p>表示を変えたら保存 → ブラウザでリロード、の流れで確認してください。</p>
+          <p>表示を変えたら保存 → <GlossaryTerm name="browser">ブラウザ</GlossaryTerm>でリロード、の流れで確認してください。</p>
         </div>,
         {
           imageSrc: '/screenshots/2-3一枚目.png',
@@ -311,7 +311,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
           <p>表示されない・真っ白・エラーが出るときは、次を確認しましょう。</p>
           <ul>
             <li>ファイルを保存したか（Ctrl+S など）。</li>
-            <li>ブラウザをリロードしたか（F5 や Ctrl+R）。</li>
+            <li><GlossaryTerm name="browser">ブラウザ</GlossaryTerm>をリロードしたか（F5 や Ctrl+R）。</li>
             <li>開いているファイルのパスは正しいか（<GlossaryTerm name="indexHtml">index.html</GlossaryTerm> を開いているか）。</li>
             <li>
               <GlossaryTerm name="devTools">開発者ツール</GlossaryTerm>のコンソール（F12 → Console）にエラーが出ていないか。出ている場合はそのメッセージを
@@ -400,12 +400,12 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
         <div className="space-y-4">
           <p>入門の達成条件を、自分でいちど確認しましょう。</p>
           <ul>
-            <li>ブラウザで開いて表示できるか。</li>
+            <li><GlossaryTerm name="browser">ブラウザ</GlossaryTerm>で開いて表示できるか。</li>
             <li>チェック・テーマ切替が動くか。</li>
             <li>リロード後もタスクが残るか。</li>
           </ul>
           <p>
-            すべて満たせたら、次の第4章「GitHub にアップロードしよう」に進みます。
+            すべて満たせたら、次の第4章「<GlossaryTerm name="github">GitHub</GlossaryTerm> にアップロードしよう」に進みます。
           </p>
         </div>
       ),
@@ -432,7 +432,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
             にアクセスしてログインします。
           </p>
           <p>
-            画面上で「New repository」から新しいリポジトリを作成します。リポジトリ名は任意です。README
+            画面上で「New repository」から新しいリポジトリを作成します。リポジトリ名は任意です。<GlossaryTerm name="readme">README</GlossaryTerm>
             や .gitignore は、既にローカルにファイルがある場合は追加しなくて構いません。
           </p>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -472,7 +472,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
             </li>
           </ol>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            <GlossaryTerm name="github">GitHub</GlossaryTerm> へのログインを求められたら、ブラウザまたは認証情報でログインしてください。
+            <GlossaryTerm name="github">GitHub</GlossaryTerm> へのログインを求められたら、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>または認証情報でログインしてください。
           </p>
         </div>,
         {
@@ -480,7 +480,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
 
 前提:
 - まだ Git の初期化はしていないか、よく分かりません。
-- GitHub 上には空のリポジトリ（README などなし）を作ってあります。
+- GitHub 上には空のリポジトリ（<GlossaryTerm name="readme">README</GlossaryTerm> などなし）を作ってあります。
 - ブランチ名は main を使いたいです。`,
         }
       ),
@@ -509,7 +509,7 @@ export const INTRO_CHAPTERS: IntroChapter[] = [
         {
           samplePrompt: `git push や GitHub Pages の設定でエラーが出たときに、どう調べればよいか教えてください。
 
-このあと実際にターミナルのエラー文や GitHub のスクリーンショットを貼るので、その内容をもとに原因と対処法を一緒に整理してほしいです。`,
+このあと実際に<GlossaryTerm name="terminal">ターミナル</GlossaryTerm>のエラー文や <GlossaryTerm name="github">GitHub</GlossaryTerm> のスクリーンショットを貼るので、その内容をもとに原因と対処法を一緒に整理してほしいです。`,
         }
       ),
       step(

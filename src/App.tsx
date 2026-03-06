@@ -6,13 +6,16 @@ import { IntroStepView } from './components/panels/IntroStepView'
 import { IntermediatePanel } from './components/panels/IntermediatePanel'
 import { IntermediateStepView } from './components/panels/IntermediateStepView'
 import { AdvancedPanel } from './components/panels/AdvancedPanel'
+import { AdvancedStepView } from './components/panels/AdvancedStepView'
 import { GitHubPanel } from './components/panels/GitHubPanel'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
+import { isValidAdvancedStepId } from './data/advancedSteps'
 
 const TAB_STORAGE_KEY = 'cursor-training-active-tab'
 const INTRO_HASH_PREFIX = '#intro'
 const INTERMEDIATE_HASH_PREFIX = '#intermediate'
+const ADVANCED_HASH_PREFIX = '#advanced'
 
 function parseIntroStepIdFromHash(): string | null {
   if (typeof window === 'undefined') return null
@@ -32,6 +35,24 @@ function parseIntermediateStepIdFromHash(): string | null {
   return isValidIntermediateStepId(stepId) ? stepId : null
 }
 
+function parseAdvancedStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== ADVANCED_HASH_PREFIX && !h.startsWith(ADVANCED_HASH_PREFIX + '/')) return null
+  if (h === ADVANCED_HASH_PREFIX || h === ADVANCED_HASH_PREFIX + '/') return null
+  const stepId = h.slice(ADVANCED_HASH_PREFIX.length + 1)
+  return isValidAdvancedStepId(stepId) ? stepId : null
+}
+
+function getTabFromHash(): TabId | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h.startsWith(INTRO_HASH_PREFIX)) return 'intro'
+  if (h.startsWith(INTERMEDIATE_HASH_PREFIX)) return 'intermediate'
+  if (h.startsWith(ADVANCED_HASH_PREFIX)) return 'advanced'
+  return null
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState<TabId>('intro')
   const [isDark, setIsDark] = useState(true)
@@ -39,8 +60,17 @@ function App() {
   const [intermediateStepId, setIntermediateStepId] = useState<string | null>(
     parseIntermediateStepIdFromHash
   )
+  const [advancedStepId, setAdvancedStepId] = useState<string | null>(
+    parseAdvancedStepIdFromHash
+  )
 
+  // 直接URLで開いたとき（#intro/1-1, #advanced/2-1 など）は hash からタブを決定
   useEffect(() => {
+    const tabFromHash = getTabFromHash()
+    if (tabFromHash) {
+      setActiveTab(tabFromHash)
+      return
+    }
     const stored = localStorage.getItem(TAB_STORAGE_KEY) as TabId | null
     if (stored && ['intro', 'intermediate', 'advanced', 'github'].includes(stored)) {
       setActiveTab(stored)
@@ -72,6 +102,14 @@ function App() {
     return () => window.removeEventListener('hashchange', sync)
   }, [activeTab])
 
+  useEffect(() => {
+    if (activeTab !== 'advanced') return
+    const sync = () => setAdvancedStepId(parseAdvancedStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
   const handleTabChange = (tab: TabId) => setActiveTab(tab)
   const handleThemeToggle = () => setIsDark((prev) => !prev)
 
@@ -91,6 +129,16 @@ function App() {
     window.location.hash = stepId
       ? INTERMEDIATE_HASH_PREFIX + '/' + stepId
       : INTERMEDIATE_HASH_PREFIX
+  }
+
+  const handleAdvancedStepSelect = (stepId: string) => {
+    window.location.hash = ADVANCED_HASH_PREFIX + '/' + stepId
+  }
+
+  const handleAdvancedNavigateToStep = (stepId: string | null) => {
+    window.location.hash = stepId
+      ? ADVANCED_HASH_PREFIX + '/' + stepId
+      : ADVANCED_HASH_PREFIX
   }
 
   return (
@@ -118,7 +166,15 @@ function App() {
         ) : (
           <IntermediatePanel onStepSelect={handleIntermediateStepSelect} />
         ))}
-      {activeTab === 'advanced' && <AdvancedPanel />}
+      {activeTab === 'advanced' &&
+        (advancedStepId ? (
+          <AdvancedStepView
+            stepId={advancedStepId}
+            onNavigateToStep={handleAdvancedNavigateToStep}
+          />
+        ) : (
+          <AdvancedPanel onStepSelect={handleAdvancedStepSelect} />
+        ))}
       {activeTab === 'github' && <GitHubPanel />}
     </Layout>
   )
