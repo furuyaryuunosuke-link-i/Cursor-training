@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { flushSync } from 'react-dom'
 import { Layout } from './components/Layout'
 import { type TabId } from './components/TabNav'
 import { IntroPanel } from './components/panels/IntroPanel'
@@ -14,12 +15,14 @@ import { WebServiceStepView } from './components/panels/WebServiceStepView'
 import { FrontendPanel } from './components/panels/FrontendPanel'
 import { FrontendStepView } from './components/panels/FrontendStepView'
 import { GitHubPanel } from './components/panels/GitHubPanel'
+import { GitHubStepView } from './components/panels/GitHubStepView'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
 import { isValidAdvancedStepId } from './data/advancedSteps'
 import { isValidSecurityStepId } from './data/securitySteps'
 import { isValidWebServiceStepId } from './data/webServiceSteps'
 import { isValidFrontendStepId } from './data/frontendSteps'
+import { isValidGitHubStepId } from './data/githubSteps'
 
 const TAB_STORAGE_KEY = 'cursor-training-active-tab'
 const INTRO_HASH_PREFIX = '#intro'
@@ -28,6 +31,7 @@ const ADVANCED_HASH_PREFIX = '#advanced'
 const SECURITY_HASH_PREFIX = '#security'
 const WEB_SERVICE_HASH_PREFIX = '#webService'
 const FRONTEND_HASH_PREFIX = '#frontend'
+const GITHUB_HASH_PREFIX = '#github'
 
 function parseIntroStepIdFromHash(): string | null {
   if (typeof window === 'undefined') return null
@@ -83,6 +87,15 @@ function parseFrontendStepIdFromHash(): string | null {
   return isValidFrontendStepId(stepId) ? stepId : null
 }
 
+function parseGitHubStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== GITHUB_HASH_PREFIX && !h.startsWith(GITHUB_HASH_PREFIX + '/')) return null
+  if (h === GITHUB_HASH_PREFIX || h === GITHUB_HASH_PREFIX + '/') return null
+  const stepId = h.slice(GITHUB_HASH_PREFIX.length + 1)
+  return isValidGitHubStepId(stepId) ? stepId : null
+}
+
 function getTabFromHash(): TabId | null {
   if (typeof window === 'undefined') return null
   const h = window.location.hash
@@ -92,6 +105,7 @@ function getTabFromHash(): TabId | null {
   if (h.startsWith(SECURITY_HASH_PREFIX)) return 'security'
   if (h.startsWith(WEB_SERVICE_HASH_PREFIX)) return 'webService'
   if (h.startsWith(FRONTEND_HASH_PREFIX)) return 'frontend'
+  if (h.startsWith(GITHUB_HASH_PREFIX)) return 'github'
   return null
 }
 
@@ -113,6 +127,9 @@ function App() {
   )
   const [frontendStepId, setFrontendStepId] = useState<string | null>(
     parseFrontendStepIdFromHash
+  )
+  const [githubStepId, setGitHubStepId] = useState<string | null>(
+    parseGitHubStepIdFromHash
   )
 
   // 直接URLで開いたとき（#intro/1-1, #advanced/2-1 など）は hash からタブを決定
@@ -196,77 +213,97 @@ function App() {
     return () => window.removeEventListener('hashchange', sync)
   }, [activeTab])
 
+  useEffect(() => {
+    if (activeTab !== 'github') return
+    const sync = () => setGitHubStepId(parseGitHubStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
   const handleTabChange = (tab: TabId) => setActiveTab(tab)
   const handleThemeToggle = () => setIsDark((prev) => !prev)
 
   const handleIntroStepSelect = (stepId: string) => {
-    setIntroStepId(stepId)
+    flushSync(() => setIntroStepId(stepId))
     window.location.hash = INTRO_HASH_PREFIX + '/' + stepId
   }
 
   const handleIntroNavigateToStep = (stepId: string | null) => {
-    setIntroStepId(stepId)
+    flushSync(() => setIntroStepId(stepId))
     window.location.hash = stepId ? INTRO_HASH_PREFIX + '/' + stepId : INTRO_HASH_PREFIX
   }
 
   const handleIntermediateStepSelect = (stepId: string) => {
-    setIntermediateStepId(stepId)
+    flushSync(() => setIntermediateStepId(stepId))
     window.location.hash = INTERMEDIATE_HASH_PREFIX + '/' + stepId
   }
 
   const handleIntermediateNavigateToStep = (stepId: string | null) => {
-    setIntermediateStepId(stepId)
+    flushSync(() => setIntermediateStepId(stepId))
     window.location.hash = stepId
       ? INTERMEDIATE_HASH_PREFIX + '/' + stepId
       : INTERMEDIATE_HASH_PREFIX
   }
 
   const handleAdvancedStepSelect = (stepId: string) => {
-    setAdvancedStepId(stepId)
+    flushSync(() => setAdvancedStepId(stepId))
     window.location.hash = ADVANCED_HASH_PREFIX + '/' + stepId
   }
 
   const handleAdvancedNavigateToStep = (stepId: string | null) => {
-    setAdvancedStepId(stepId)
+    flushSync(() => setAdvancedStepId(stepId))
     window.location.hash = stepId
       ? ADVANCED_HASH_PREFIX + '/' + stepId
       : ADVANCED_HASH_PREFIX
   }
 
   const handleSecurityStepSelect = (stepId: string) => {
-    setSecurityStepId(stepId)
+    flushSync(() => setSecurityStepId(stepId))
     window.location.hash = SECURITY_HASH_PREFIX + '/' + stepId
   }
 
   const handleSecurityNavigateToStep = (stepId: string | null) => {
-    setSecurityStepId(stepId)
+    flushSync(() => setSecurityStepId(stepId))
     window.location.hash = stepId
       ? SECURITY_HASH_PREFIX + '/' + stepId
       : SECURITY_HASH_PREFIX
   }
 
   const handleWebServiceStepSelect = (stepId: string) => {
-    setWebServiceStepId(stepId)
+    flushSync(() => setWebServiceStepId(stepId))
     window.location.hash = WEB_SERVICE_HASH_PREFIX + '/' + stepId
   }
 
   const handleWebServiceNavigateToStep = (stepId: string | null) => {
-    setWebServiceStepId(stepId)
+    flushSync(() => setWebServiceStepId(stepId))
     window.location.hash = stepId
       ? WEB_SERVICE_HASH_PREFIX + '/' + stepId
       : WEB_SERVICE_HASH_PREFIX
   }
 
   const handleFrontendStepSelect = (stepId: string) => {
-    setFrontendStepId(stepId)
+    flushSync(() => setFrontendStepId(stepId))
     window.location.hash = FRONTEND_HASH_PREFIX + '/' + stepId
   }
 
   const handleFrontendNavigateToStep = (stepId: string | null) => {
-    setFrontendStepId(stepId)
+    flushSync(() => setFrontendStepId(stepId))
     window.location.hash = stepId
       ? FRONTEND_HASH_PREFIX + '/' + stepId
       : FRONTEND_HASH_PREFIX
+  }
+
+  const handleGitHubStepSelect = (stepId: string) => {
+    flushSync(() => setGitHubStepId(stepId))
+    window.location.hash = GITHUB_HASH_PREFIX + '/' + stepId
+  }
+
+  const handleGitHubNavigateToStep = (stepId: string | null) => {
+    flushSync(() => setGitHubStepId(stepId))
+    window.location.hash = stepId
+      ? GITHUB_HASH_PREFIX + '/' + stepId
+      : GITHUB_HASH_PREFIX
   }
 
   return (
@@ -330,7 +367,15 @@ function App() {
         ) : (
           <FrontendPanel onStepSelect={handleFrontendStepSelect} />
         ))}
-      {activeTab === 'github' && <GitHubPanel />}
+      {activeTab === 'github' &&
+        (githubStepId ? (
+          <GitHubStepView
+            stepId={githubStepId}
+            onNavigateToStep={handleGitHubNavigateToStep}
+          />
+        ) : (
+          <GitHubPanel onStepSelect={handleGitHubStepSelect} />
+        ))}
     </Layout>
   )
 }

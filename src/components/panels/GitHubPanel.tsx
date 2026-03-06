@@ -1,97 +1,145 @@
-import { GlassCard } from '../GlassCard'
-import { GlossaryTerm } from '../GlossaryTerm'
+import { useEffect, useRef, useState } from 'react'
+import { GITHUB_CHAPTERS } from '../../data/githubSteps'
+import { useStepCompletion } from '../../hooks/useStepCompletion'
 
-export function GitHubPanel() {
+type GitHubPanelProps = {
+  onStepSelect: (stepId: string) => void
+}
+
+export function GitHubPanel({ onStepSelect }: GitHubPanelProps) {
+  const { completed, isStepCompleted, toggleStep, setMany } = useStepCompletion(
+    'github-step-completion'
+  )
+  const [flashChapters, setFlashChapters] = useState<Record<string, boolean>>({})
+  const prevAllCompletedRef = useRef<Record<string, boolean>>({})
+
+  useEffect(() => {
+    const prevAllCompleted = prevAllCompletedRef.current
+    const nextAllCompleted: Record<string, boolean> = {}
+
+    for (const chapter of GITHUB_CHAPTERS) {
+      const allDone =
+        chapter.steps.length > 0 &&
+        chapter.steps.every((step) => !!completed[step.id])
+      nextAllCompleted[chapter.id] = allDone
+
+      if (allDone && !prevAllCompleted[chapter.id]) {
+        setFlashChapters((current) => ({
+          ...current,
+          [chapter.id]: true,
+        }))
+        window.setTimeout(() => {
+          setFlashChapters((current) => ({
+            ...current,
+            [chapter.id]: false,
+          }))
+        }, 800)
+      }
+    }
+
+    prevAllCompletedRef.current = nextAllCompleted
+  }, [completed])
+
+  const handleToggleChapterAll = (chapterId: string, stepIds: string[], checked: boolean) => {
+    setMany(stepIds, checked)
+    if (checked) {
+      setFlashChapters((current) => ({ ...current, [chapterId]: true }))
+      window.setTimeout(() => {
+        setFlashChapters((current) => ({ ...current, [chapterId]: false }))
+      }, 800)
+    }
+  }
+
   return (
     <section
       id="panel-github"
       role="tabpanel"
       aria-labelledby="tab-github"
-      className="space-y-6"
+      className="space-y-8"
     >
-      <GlassCard>
-        <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
-          <GlossaryTerm name="github">GitHub</GlossaryTerm> に上げる（必須ステップ）
-        </h2>
-        <p className="text-neutral-700 dark:text-neutral-200 mb-4">
-          入門で作ったプロジェクトを <GlossaryTerm name="github">GitHub</GlossaryTerm> にプッシュする手順です。リポジトリ名・URL
-          は自分のものに置き換えてください（例: your-username/your-repo）。
-        </p>
+      {GITHUB_CHAPTERS.map((chapter) => {
+        const stepIds = chapter.steps.map((step) => step.id)
+        const completedCount = stepIds.filter((id) => !!completed[id]).length
+        const allCompleted = stepIds.length > 0 && completedCount === stepIds.length
+        const isFlashing = !!flashChapters[chapter.id]
 
-        <ol className="list-decimal list-inside space-y-3 text-neutral-700 dark:text-neutral-200">
-          <li>
-            <strong><GlossaryTerm name="github">GitHub</GlossaryTerm> でリポジトリを作成</strong>
-            <br />
-            画面上で「New repository」から作成。<GlossaryTerm name="readme">README</GlossaryTerm> や .gitignore
-            は既にローカルにある場合は追加しなくてよい。
-          </li>
-          <li>
-            <strong>プロジェクトフォルダで<GlossaryTerm name="terminal">ターミナル</GlossaryTerm>を開く</strong>
-            <br />
-            エクスプローラーでフォルダを開き、そのフォルダで PowerShell
-            またはコマンドプロンプトを開く。または <GlossaryTerm name="cursor">Cursor</GlossaryTerm> の<GlossaryTerm name="terminal">ターミナル</GlossaryTerm>で
-            <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm">
-              cd
-            </code>{' '}
-            してそのフォルダに移動する。
-          </li>
-          <li>
-            <strong>初回のみ：<GlossaryTerm name="git">Git</GlossaryTerm> を初期化</strong>
-            <br />
-            <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm block mt-1">
-              git init
-            </code>
-          </li>
-          <li>
-            <strong>リモートを追加</strong>
-            <br />
-            <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm block mt-1">
-              git remote add origin
-              https://github.com/your-username/your-repo.git
-            </code>
-          </li>
-          <li>
-            <strong>全ファイルをステージ</strong>
-            <br />
-            <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm block mt-1">
-              git add .
-            </code>
-          </li>
-          <li>
-            <strong>コミット</strong>
-            <br />
-            <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm block mt-1">
-              git commit -m "Initial commit: 今日のやることページ"
-            </code>
-          </li>
-          <li>
-            <strong>main ブランチでプッシュ</strong>
-            <br />
-            <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm block mt-1">
-              git branch -M main
-            </code>
-            <br />
-            <code className="bg-white/20 dark:bg-black/20 px-1 rounded text-sm block mt-1">
-              git push -u origin main
-            </code>
-          </li>
-        </ol>
+        return (
+          <div
+            key={chapter.id}
+            className={
+              'chapter-card space-y-3 ' +
+              (allCompleted ? 'chapter-card--completed ' : '') +
+              (isFlashing ? 'chapter-card--flash ' : '')
+            }
+          >
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">
+                  {chapter.title}
+                </h2>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+                  {completedCount} / {stepIds.length} ステップ完了
+                </p>
+              </div>
+              <label
+                className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-300"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <input
+                  type="checkbox"
+                  className="h-3.5 w-3.5 accent-emerald-500"
+                  checked={allCompleted}
+                  onChange={(e) =>
+                    handleToggleChapterAll(chapter.id, stepIds, e.target.checked)
+                  }
+                />
+                <span>この章をまとめて達成</span>
+              </label>
+            </div>
 
-        <p className="text-neutral-500 dark:text-neutral-400 mt-4 text-sm">
-          GitHub へのログイン（<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>または認証情報）を求められたら、指示に従ってください。
-        </p>
-      </GlassCard>
-
-      <GlassCard>
-        <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
-          任意：<GlossaryTerm name="githubPages">GitHub Pages</GlossaryTerm> で公開
-        </h2>
-        <p className="text-neutral-700 dark:text-neutral-200 text-sm">
-          リポジトリの Settings → Pages から、Source を「Deploy from a
-          branch」にし、branch を main、フォルダを / (root) または
-          /docs にすると、静的サイトが URL で公開されます。
-        </p>
-      </GlassCard>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {chapter.steps.map((step) => {
+                const completedStep = isStepCompleted(step.id)
+                return (
+                  <button
+                    key={step.id}
+                    type="button"
+                    onClick={() => onStepSelect(step.id)}
+                    className={
+                      'relative text-left rounded-2xl bg-white/30 dark:bg-white/5 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-lg p-5 hover:bg-white/40 dark:hover:bg-white/10 hover:border-white/60 dark:hover:border-white/20 transition-colors focus-visible:ring-2 focus-visible:ring-white/30 dark:focus-visible:ring-white/20 outline-none ' +
+                      (completedStep
+                        ? ' border-emerald-400/70 dark:border-emerald-400/70 ring-1 ring-emerald-400/60'
+                        : '')
+                    }
+                  >
+                    <label
+                      className="absolute top-3 right-3 flex items-center gap-1 text-xs text-emerald-500 dark:text-emerald-300"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <input
+                        type="checkbox"
+                        className="h-3 w-3 accent-emerald-500"
+                        checked={completedStep}
+                        onChange={(e) => {
+                          e.stopPropagation()
+                          toggleStep(step.id)
+                        }}
+                      />
+                      <span>達成</span>
+                    </label>
+                    <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                      {step.id}
+                    </span>
+                    <p className="mt-1 font-medium text-neutral-900 dark:text-white">
+                      {step.title}
+                    </p>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        )
+      })}
     </section>
   )
 }

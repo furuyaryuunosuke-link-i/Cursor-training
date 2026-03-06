@@ -1,0 +1,5 @@
+GitHubタブ拡張と用語チップの追加
+
+- GitHub: 章・ステップ構成（6章×4ステップ）、ハッシュルーティング、完了管理、GitHubStepView 追加
+- グロッサリーに用語追加（gitignore、リポジトリ、リモート、init、ステージ、コミット、upstream、status、diff、ブランチ、マージ、pull、コンフリクト、Source、静的サイト、Vite、DNS、CNAME、Vercel、ラベル、マイルストーン、Pull Request、PR、typo など）
+- GitHub 章コンテンツで該当用語を GlossaryTerm でラップ
