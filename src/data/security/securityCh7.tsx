@@ -27,7 +27,7 @@ export const SECURITY_CHAPTER_7: SecurityChapter = {
       '環境の分離（開発／検証／本番・シークレットの切り替え）',
       <div className="space-y-4">
         <p>
-          <strong>開発・検証・本番</strong>を環境として分離し、本番の<GlossaryTerm name="config">設定</GlossaryTerm>や<GlossaryTerm name="secret">シークレット</GlossaryTerm>を他環境と混在させません。デプロイ時は環境ごとの設定ファイルや環境変数で切り替えます。
+          <strong>開発・検証・本番</strong>を環境として分離し、本番の<GlossaryTerm name="config">設定</GlossaryTerm>や<GlossaryTerm name="secret">シークレット</GlossaryTerm>を他環境と混在させません。<GlossaryTerm name="deploy">デプロイ</GlossaryTerm>時は環境ごとの設定ファイルや環境変数で切り替えます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>

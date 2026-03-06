@@ -11,11 +11,11 @@ export const ADVANCED_CHAPTER_2: AdvancedChapter = {
       'ブラウザとサーバーがどう連携するか',
       <div className="space-y-4">
         <p>
-          ローカルツールでは、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>で表示している画面（<GlossaryTerm name="frontend">フロント</GlossaryTerm>）が、
+          <GlossaryTerm name="localTool">ローカルツール</GlossaryTerm>では、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>で表示している画面（<GlossaryTerm name="frontend">フロント</GlossaryTerm>）が、
           <strong>同じマシンで動いている<GlossaryTerm name="server">サーバー</GlossaryTerm>（<GlossaryTerm name="backend">バックエンド</GlossaryTerm>）にリクエストを送り、結果を受け取る</strong>形で動いています。
         </p>
         <p>
-          <GlossaryTerm name="api">API</GlossaryTerm>（エンドポイント）の URL・メソッド・送受信するデータ形式（<GlossaryTerm name="json">JSON</GlossaryTerm> など）のイメージをつかみます。
+          <GlossaryTerm name="api">API</GlossaryTerm>（<GlossaryTerm name="endpoint">エンドポイント</GlossaryTerm>）の URL・メソッド・送受信するデータ形式（<GlossaryTerm name="json">JSON</GlossaryTerm> など）のイメージをつかみます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
@@ -66,7 +66,7 @@ export const ADVANCED_CHAPTER_2: AdvancedChapter = {
         <p>「ボタンを押す → <GlossaryTerm name="fetch">fetch</GlossaryTerm> で API を叩く → 結果を表示する」の 1 往復を自分で書いてみます。</p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          既存のローカルツールの「ボタン → 処理」の流れは、ほとんどこのパターンです。
+          既存の<GlossaryTerm name="localTool">ローカルツール</GlossaryTerm>の「ボタン → 処理」の流れは、ほとんどこのパターンです。
           ここを自分で書けるようになると、既存ツールに「新しいボタンと新しい <GlossaryTerm name="api">API</GlossaryTerm>」を 1 セットで追加するイメージが持てます。
         </p>
       </div>,

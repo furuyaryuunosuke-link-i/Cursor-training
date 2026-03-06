@@ -1,6 +1,9 @@
 import { WEB_SERVICE_CHAPTER_1 } from './webService/webServiceCh1'
 import { WEB_SERVICE_CHAPTER_2 } from './webService/webServiceCh2'
 import { WEB_SERVICE_CHAPTER_3 } from './webService/webServiceCh3'
+import { WEB_SERVICE_CHAPTER_4 } from './webService/webServiceCh4'
+import { WEB_SERVICE_CHAPTER_5 } from './webService/webServiceCh5'
+import { WEB_SERVICE_CHAPTER_6 } from './webService/webServiceCh6'
 import type { WebServiceChapter, WebServiceStep } from './webService/types'
 
 export type { WebServiceChapter, WebServiceStep } from './webService/types'
@@ -9,6 +12,9 @@ export const WEB_SERVICE_CHAPTERS: WebServiceChapter[] = [
   WEB_SERVICE_CHAPTER_1,
   WEB_SERVICE_CHAPTER_2,
   WEB_SERVICE_CHAPTER_3,
+  WEB_SERVICE_CHAPTER_4,
+  WEB_SERVICE_CHAPTER_5,
+  WEB_SERVICE_CHAPTER_6,
 ]
 
 export function getWebServiceStepById(stepId: string): {
