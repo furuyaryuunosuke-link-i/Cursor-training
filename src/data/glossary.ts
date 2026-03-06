@@ -297,6 +297,20 @@ export const GLOSSARY: Record<string, string> = {
   ux: 'UX。ユーザー体験。使いやすさ・分かりやすさ・操作の流れなど、ユーザーが感じる体験全体。',
   spa: 'SPA。Single Page Application。1 枚の HTML を読み込み、以降は JavaScript で画面を差し替える方式。遷移が速いが初期ロードや SEO に配慮が必要。',
   seo: 'SEO。検索エンジン最適化。Google などに内容を正しく伝え、検索結果で見つかりやすくすること。SPA では初期 HTML の内容が重要。',
+
+  textFile: 'テキストファイル。文字だけが並んだファイル（.txt など）。Python では open() で開き、read / readlines で読む、write / writelines で書く。',
+  intType: 'int。Python の整数型。数値（1, 2, 100 など）を表す。計算や比較に使う。',
+  strType: 'str。Python の文字列型。引用符で囲んだテキスト（"hello" や \'こんにちは\'）を表す。',
+  ifElse: 'if / else。条件によって処理を分ける構文。if の条件が真なら if ブロック、そうでなければ else ブロックを実行する。',
+  defKeyword: 'def。Python で関数を定義するときに使うキーワード。def 関数名(引数): の形で書く。',
+  function: '関数。処理をひとまとまりにしたもの。def で定義し、名前を書いて呼び出す。同じ処理を何度も使い回せる。',
+  write: 'write。Python のファイルオブジェクトのメソッド。文字列を 1 回分、ファイルに書き込む。',
+  writelines: 'writelines。Python のファイルオブジェクトのメソッド。文字列のリストをまとめてファイルに書き込む。改行は自分で付ける。',
+  csv: 'CSV。カンマ区切りで列を並べたテキスト形式。表データのやり取りでよく使う。Python では csv モジュールや pandas で読む。',
+  requests: 'requests。Python で HTTP リクエスト（GET や POST）を送るためのライブラリ。pip install requests で入れる。',
+  pip: 'pip。Python のパッケージ管理ツール。pip install 〇〇 でライブラリをインストールする。',
+  osListdir: 'os.listdir。Python の os モジュールの関数。指定したフォルダ内のファイル・フォルダ名のリストを返す。',
+  pathlib: 'pathlib。Python でパス（ファイル・フォルダの場所）を扱うための標準ライブラリ。Path オブジェクトで読み書きや一覧取得がしやすい。',
 }
 
 /** 用語集タブ用：表示名（未定義なら key を表示） */
@@ -400,6 +414,20 @@ export const GLOSSARY_LABELS: Record<string, string> = {
   vulnerability: '脆弱性',
   ci: 'CI',
   cd: 'CD',
+  textFile: 'テキストファイル',
+  intType: 'int',
+  strType: 'str',
+  ifElse: 'if/else',
+  defKeyword: 'def',
+  function: '関数',
+  write: 'write',
+  writelines: 'writelines',
+  csv: 'CSV',
+  requests: 'requests',
+  pip: 'pip',
+  osListdir: 'os.listdir',
+  pathlib: 'pathlib',
+  version: 'バージョン',
 }
 
 /** 用語集タブ用：カテゴリ一覧 */
@@ -546,6 +574,20 @@ export const GLOSSARY_META: Record<string, { category: string; tags: string[] }>
   jwt: { category: 'security', tags: ['auth'] },
   openApi: { category: 'webService', tags: ['tech'] },
   swagger: { category: 'webService', tags: ['tool'] },
+  textFile: { category: 'intermediate', tags: ['concept'] },
+  intType: { category: 'intermediate', tags: ['tech'] },
+  strType: { category: 'intermediate', tags: ['tech'] },
+  ifElse: { category: 'intermediate', tags: ['tech'] },
+  defKeyword: { category: 'intermediate', tags: ['tech'] },
+  function: { category: 'intermediate', tags: ['concept'] },
+  write: { category: 'intermediate', tags: ['tech'] },
+  writelines: { category: 'intermediate', tags: ['tech'] },
+  csv: { category: 'intermediate', tags: ['concept'] },
+  requests: { category: 'intermediate', tags: ['tech'] },
+  pip: { category: 'intermediate', tags: ['command'] },
+  osListdir: { category: 'intermediate', tags: ['tech'] },
+  pathlib: { category: 'intermediate', tags: ['tech'] },
+  version: { category: 'intermediate', tags: ['concept'] },
 }
 
 /**

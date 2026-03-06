@@ -52,7 +52,7 @@ export const FRONTEND_CHAPTER_1: FrontendChapter = {
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          データの流れが一方向だと、不具合の原因を「どのコンポーネントのどの更新でおかしくなったか」と切り分けやすくなります。
+          データの流れが一方向だと、不具合の原因を「どの<GlossaryTerm name="component">コンポーネント</GlossaryTerm>のどの更新でおかしくなったか」と切り分けやすくなります。
         </p>
       </div>,
       {

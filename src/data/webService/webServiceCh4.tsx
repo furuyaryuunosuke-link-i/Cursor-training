@@ -29,11 +29,11 @@ export const WEB_SERVICE_CHAPTER_4: WebServiceChapter = {
       'API 認証（API キー・トークン・OAuth の使い分け）',
       <div className="space-y-4">
         <p>
-          外部から API を叩くときの<strong>認証</strong>をどうするか決めます。<GlossaryTerm name="apiKey">API キー</GlossaryTerm>をヘッダーに載せる方法、<GlossaryTerm name="token">トークン</GlossaryTerm>（<GlossaryTerm name="jwt">JWT</GlossaryTerm> など）で「誰か」を識別する方法、<GlossaryTerm name="oauth">OAuth</GlossaryTerm> で他サービス認証と連携する方法の違いと、社内ツールならどこまで必要かを押さえます。
+          外部から API を叩くときの<strong><GlossaryTerm name="authentication">認証</GlossaryTerm></strong>をどうするか決めます。<GlossaryTerm name="apiKey">API キー</GlossaryTerm>をヘッダーに載せる方法、<GlossaryTerm name="token">トークン</GlossaryTerm>（<GlossaryTerm name="jwt">JWT</GlossaryTerm> など）で「誰か」を識別する方法、<GlossaryTerm name="oauth">OAuth</GlossaryTerm> で他サービス<GlossaryTerm name="authentication">認証</GlossaryTerm>と連携する方法の違いと、社内ツールならどこまで必要かを押さえます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          認証なしだと誰でも API を叩けてしまい、漏洩や悪用のリスクがあります。社内限定でも、API キーやトークンで「許可したクライアントだけ」にすると安全です。
+          <GlossaryTerm name="authentication">認証</GlossaryTerm>なしだと誰でも API を叩けてしまい、漏洩や悪用のリスクがあります。社内限定でも、API キーやトークンで「許可したクライアントだけ」にすると安全です。
         </p>
       </div>,
       {
@@ -45,7 +45,7 @@ export const WEB_SERVICE_CHAPTER_4: WebServiceChapter = {
       'バージョニングと互換性（/v1/ など・破壊的変更を避ける）',
       <div className="space-y-4">
         <p>
-          API を<strong>バージョン</strong>で管理し、破壊的変更（レスポンスの形を変える・必須引数を増やすなど）は新しいバージョン（例: /v2/）で出すようにします。旧バージョンは一定期間サポートし、廃止時期をドキュメントに書いておきます。
+          API を<strong><GlossaryTerm name="version">バージョン</GlossaryTerm></strong>で管理し、破壊的変更（レスポンスの形を変える・必須引数を増やすなど）は新しい<GlossaryTerm name="version">バージョン</GlossaryTerm>（例: /v2/）で出すようにします。旧<GlossaryTerm name="version">バージョン</GlossaryTerm>は一定期間サポートし、廃止時期をドキュメントに書いておきます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
@@ -61,7 +61,7 @@ export const WEB_SERVICE_CHAPTER_4: WebServiceChapter = {
       'API ドキュメントと OpenAPI（仕様の共有・Swagger のイメージ）',
       <div className="space-y-4">
         <p>
-          API の<strong>仕様を文章や <GlossaryTerm name="openApi">OpenAPI</GlossaryTerm>（<GlossaryTerm name="swagger">Swagger</GlossaryTerm>）形式</strong>で残し、利用者やフロント開発者が「どの<GlossaryTerm name="endpoint">エンドポイント</GlossaryTerm>に何を送ると何が返るか」を把握できるようにします。OpenAPI からドキュメントやクライアントコードを自動生成するツールも活用できます。
+          API の<strong>仕様を文章や <GlossaryTerm name="openApi">OpenAPI</GlossaryTerm>（<GlossaryTerm name="swagger">Swagger</GlossaryTerm>）形式</strong>で残し、利用者や<GlossaryTerm name="frontend">フロント</GlossaryTerm>開発者が「どの<GlossaryTerm name="endpoint">エンドポイント</GlossaryTerm>に何を送ると何が返るか」を把握できるようにします。OpenAPI からドキュメントやクライアントコードを自動生成するツールも活用できます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>

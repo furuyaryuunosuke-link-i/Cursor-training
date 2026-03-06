@@ -35,7 +35,7 @@ export const ADVANCED_CHAPTER_2: AdvancedChapter = {
       <div className="space-y-4">
         <p>
           <GlossaryTerm name="python">Python</GlossaryTerm> で
-          <GlossaryTerm name="fastapi">FastAPI</GlossaryTerm> や <GlossaryTerm name="flask">Flask</GlossaryTerm> などの軽量フレームワークを使い、
+          <GlossaryTerm name="fastapi">FastAPI</GlossaryTerm> や <GlossaryTerm name="flask">Flask</GlossaryTerm> などの軽量<GlossaryTerm name="framework">フレームワーク</GlossaryTerm>を使い、
           <strong>「<GlossaryTerm name="get">GET</GlossaryTerm> で〇〇を返す」「<GlossaryTerm name="post">POST</GlossaryTerm> でデータを受け取る」</strong>といった最小限の
           <GlossaryTerm name="api">API</GlossaryTerm> を 1 本立ち上げる練習をします。
         </p>

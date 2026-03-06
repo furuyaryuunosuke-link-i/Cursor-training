@@ -16,6 +16,8 @@ import { FrontendPanel } from './components/panels/FrontendPanel'
 import { FrontendStepView } from './components/panels/FrontendStepView'
 import { GitHubPanel } from './components/panels/GitHubPanel'
 import { GitHubStepView } from './components/panels/GitHubStepView'
+import { PythonPanel } from './components/panels/PythonPanel'
+import { PythonStepView } from './components/panels/PythonStepView'
 import { GlossaryPanel } from './components/panels/GlossaryPanel'
 import { ToolPlaceholderPanel } from './components/panels/ToolPlaceholderPanel'
 import { GlossaryNavigationProvider } from './contexts/GlossaryNavigationContext'
@@ -26,6 +28,7 @@ import { isValidSecurityStepId } from './data/securitySteps'
 import { isValidWebServiceStepId } from './data/webServiceSteps'
 import { isValidFrontendStepId } from './data/frontendSteps'
 import { isValidGitHubStepId } from './data/githubSteps'
+import { isValidPythonStepId } from './data/pythonSteps'
 
 const TAB_STORAGE_KEY = 'cursor-training-active-tab'
 const INTRO_HASH_PREFIX = '#intro'
@@ -102,6 +105,15 @@ function parseGitHubStepIdFromHash(): string | null {
   return isValidGitHubStepId(stepId) ? stepId : null
 }
 
+function parsePythonStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== PYTHON_HASH_PREFIX && !h.startsWith(PYTHON_HASH_PREFIX + '/')) return null
+  if (h === PYTHON_HASH_PREFIX || h === PYTHON_HASH_PREFIX + '/') return null
+  const stepId = h.slice(PYTHON_HASH_PREFIX.length + 1)
+  return isValidPythonStepId(stepId) ? stepId : null
+}
+
 function getTabFromHash(): TabId | null {
   if (typeof window === 'undefined') return null
   const h = window.location.hash
@@ -139,6 +151,9 @@ function App() {
   )
   const [githubStepId, setGitHubStepId] = useState<string | null>(
     parseGitHubStepIdFromHash
+  )
+  const [pythonStepId, setPythonStepId] = useState<string | null>(
+    parsePythonStepIdFromHash
   )
 
   // 直接URLで開いたとき（#intro/1-1, #advanced/2-1 など）は hash からタブを決定
@@ -233,6 +248,14 @@ function App() {
     return () => window.removeEventListener('hashchange', sync)
   }, [activeTab])
 
+  useEffect(() => {
+    if (activeTab !== 'python') return
+    const sync = () => setPythonStepId(parsePythonStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
   const handleTabChange = (tab: TabId) => setActiveTab(tab)
   const handleThemeToggle = () => setIsDark((prev) => !prev)
 
@@ -318,6 +341,18 @@ function App() {
       : GITHUB_HASH_PREFIX
   }
 
+  const handlePythonStepSelect = (stepId: string) => {
+    flushSync(() => setPythonStepId(stepId))
+    window.location.hash = PYTHON_HASH_PREFIX + '/' + stepId
+  }
+
+  const handlePythonNavigateToStep = (stepId: string | null) => {
+    flushSync(() => setPythonStepId(stepId))
+    window.location.hash = stepId
+      ? PYTHON_HASH_PREFIX + '/' + stepId
+      : PYTHON_HASH_PREFIX
+  }
+
   return (
     <GlossaryNavigationProvider setActiveTab={(tab) => setActiveTab(tab as TabId)}>
       <Layout
@@ -389,7 +424,15 @@ function App() {
         ) : (
           <GitHubPanel onStepSelect={handleGitHubStepSelect} />
         ))}
-      {activeTab === 'python' && <ToolPlaceholderPanel title="Python" />}
+      {activeTab === 'python' &&
+        (pythonStepId ? (
+          <PythonStepView
+            stepId={pythonStepId}
+            onNavigateToStep={handlePythonNavigateToStep}
+          />
+        ) : (
+          <PythonPanel onStepSelect={handlePythonStepSelect} />
+        ))}
       {activeTab === 'nodejs' && <ToolPlaceholderPanel title="Node.js" />}
       {activeTab === 'glossary' && <GlossaryPanel />}
     </Layout>

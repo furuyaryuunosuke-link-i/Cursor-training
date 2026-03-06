@@ -45,7 +45,7 @@ export const INTRO_CHAPTER_4: IntroChapter = {
       '4-2',
       'ターミナルでGitを動かす',
       <div className="space-y-4">
-        <p>プロジェクトフォルダで<GlossaryTerm name="terminal">ターミナル</GlossaryTerm>を開きます。<GlossaryTerm name="cursor">Cursor</GlossaryTerm> の<GlossaryTerm name="terminal">ターミナル</GlossaryTerm>でも、PowerShell やコマンドプロンプトでもかまいません。</p>
+        <p>プロジェクトフォルダで<GlossaryTerm name="terminal">ターミナル</GlossaryTerm>を開きます。<GlossaryTerm name="cursor">Cursor</GlossaryTerm> の<GlossaryTerm name="terminal">ターミナル</GlossaryTerm>でも、PowerShell や<GlossaryTerm name="command">コマンド</GlossaryTerm>プロンプトでもかまいません。</p>
         <ol>
           <li>
             <strong>初回のみ：<GlossaryTerm name="git">Git</GlossaryTerm> を初期化</strong>
@@ -69,7 +69,7 @@ export const INTRO_CHAPTER_4: IntroChapter = {
           </li>
         </ol>
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          <GlossaryTerm name="github">GitHub</GlossaryTerm> へのログインを求められたら、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>または認証情報でログインしてください。
+          <GlossaryTerm name="github">GitHub</GlossaryTerm> へのログインを求められたら、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>または<GlossaryTerm name="authentication">認証</GlossaryTerm>情報でログインしてください。
         </p>
       </div>,
       {

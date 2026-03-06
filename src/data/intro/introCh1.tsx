@@ -64,7 +64,7 @@ export const INTRO_CHAPTER_1: IntroChapter = {
             が<GlossaryTerm name="code">コード</GlossaryTerm>を提案してくれます。
           </li>
           <li>
-            <strong><GlossaryTerm name="terminal">ターミナル</GlossaryTerm></strong>：コマンドを実行する場所。のちに <GlossaryTerm name="git">Git</GlossaryTerm>
+            <strong><GlossaryTerm name="terminal">ターミナル</GlossaryTerm></strong>：<GlossaryTerm name="command">コマンド</GlossaryTerm>を実行する場所。のちに <GlossaryTerm name="git">Git</GlossaryTerm>
             を使うときに使います。
           </li>
         </ul>

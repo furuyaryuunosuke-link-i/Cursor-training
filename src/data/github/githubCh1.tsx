@@ -66,11 +66,11 @@ export const GITHUB_CHAPTER_1: GitHubChapter = {
       <div className="space-y-4">
         <p>
           <GlossaryTerm name="push">push</GlossaryTerm>後、<GlossaryTerm name="github">GitHub</GlossaryTerm> の<GlossaryTerm name="repository">リポジトリ</GlossaryTerm>ページでファイルが反映されているか確認します。
-          認証を求められたら<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>またはトークンでログインします。よくあるエラーとして、<GlossaryTerm name="remoteUrl">リモート URL</GlossaryTerm>の打ち間違い・<GlossaryTerm name="branch">ブランチ</GlossaryTerm>名の不一致・認証エラーがあります。エラーメッセージの意味と対処のイメージを押さえておきます。
+          <GlossaryTerm name="authentication">認証</GlossaryTerm>を求められたら<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>またはトークンでログインします。よくあるエラーとして、<GlossaryTerm name="remoteUrl">リモート URL</GlossaryTerm>の打ち間違い・<GlossaryTerm name="branch">ブランチ</GlossaryTerm>名の不一致・<GlossaryTerm name="authentication">認証</GlossaryTerm>エラーがあります。エラーメッセージの意味と対処のイメージを押さえておきます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          初回 <GlossaryTerm name="push">push</GlossaryTerm> では認証や URL の設定ミスで失敗することがあります。どこを確認すればよいか分かっていると、自分で直しやすくなります。
+          初回 <GlossaryTerm name="push">push</GlossaryTerm> では<GlossaryTerm name="authentication">認証</GlossaryTerm>や URL の設定ミスで失敗することがあります。どこを確認すればよいか分かっていると、自分で直しやすくなります。
         </p>
       </div>,
       {

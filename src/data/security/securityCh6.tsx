@@ -60,7 +60,7 @@ export const SECURITY_CHAPTER_6: SecurityChapter = {
       '障害時のエラーメッセージ（ユーザー向けと内部向けの切り分け）',
       <div className="space-y-4">
         <p>
-          ユーザーに返す<strong>エラーメッセージ</strong>は、内部の実装詳細（<GlossaryTerm name="stackTrace">スタックトレース</GlossaryTerm>・<GlossaryTerm name="path">パス</GlossaryTerm>・<GlossaryTerm name="db">DB</GlossaryTerm> 名）を含めず、簡潔な文言にします。詳細はサーバー側のログだけに残し、本番ではデバッグモードをオフにします。
+          ユーザーに返す<strong>エラーメッセージ</strong>は、内部の実装詳細（<GlossaryTerm name="stackTrace">スタックトレース</GlossaryTerm>・<GlossaryTerm name="path">パス</GlossaryTerm>・<GlossaryTerm name="db">DB</GlossaryTerm> 名）を含めず、簡潔な文言にします。詳細は<GlossaryTerm name="server">サーバー</GlossaryTerm>側の<GlossaryTerm name="logging">ログ</GlossaryTerm>だけに残し、本番ではデバッグモードをオフにします。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>

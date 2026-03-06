@@ -30,7 +30,7 @@ export const SECURITY_CHAPTER_1: SecurityChapter = {
       'シークレットの格納場所（環境変数 vs シークレットマネージャ）',
       <div className="space-y-4">
         <p>
-          小規模なら環境変数や .env で十分ですが、本番やチーム運用では<GlossaryTerm name="secretManager">シークレットマネージャ</GlossaryTerm>（<GlossaryTerm name="awsSecretsManager">AWS Secrets Manager</GlossaryTerm>、<GlossaryTerm name="hashicorpVault">HashiCorp Vault</GlossaryTerm>、<GlossaryTerm name="azureKeyVault">Azure Key Vault</GlossaryTerm> など）の利用を検討します。アクセス制御・監査ログ・ローテーションがしやすくなります。
+          小規模なら<GlossaryTerm name="environmentVariable">環境変数</GlossaryTerm>や .env で十分ですが、本番やチーム運用では<GlossaryTerm name="secretManager">シークレットマネージャ</GlossaryTerm>（<GlossaryTerm name="awsSecretsManager">AWS Secrets Manager</GlossaryTerm>、<GlossaryTerm name="hashicorpVault">HashiCorp Vault</GlossaryTerm>、<GlossaryTerm name="azureKeyVault">Azure Key Vault</GlossaryTerm> など）の利用を検討します。アクセス制御・監査<GlossaryTerm name="logging">ログ</GlossaryTerm>・ローテーションがしやすくなります。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
@@ -62,11 +62,11 @@ export const SECURITY_CHAPTER_1: SecurityChapter = {
       'CI/CD やスクリプトで秘密を扱うときの注意（マスク・履歴に残さない）',
       <div className="space-y-4">
         <p>
-          <GlossaryTerm name="ci">CI</GlossaryTerm>/<GlossaryTerm name="cd">CD</GlossaryTerm>（GitHub Actions など）やスクリプトで<GlossaryTerm name="secret">シークレット</GlossaryTerm>を使うときは、<strong>ログに出力しない・マスクする</strong>設定にします。環境変数で渡す場合も、シェルの履歴や<GlossaryTerm name="job">ジョブ</GlossaryTerm>ログに残らないようにします。
+          <GlossaryTerm name="ci">CI</GlossaryTerm>/<GlossaryTerm name="cd">CD</GlossaryTerm>（GitHub Actions など）やスクリプトで<GlossaryTerm name="secret">シークレット</GlossaryTerm>を使うときは、<strong>ログに出力しない・マスクする</strong>設定にします。<GlossaryTerm name="environmentVariable">環境変数</GlossaryTerm>で渡す場合も、シェルの履歴や<GlossaryTerm name="job">ジョブ</GlossaryTerm><GlossaryTerm name="logging">ログ</GlossaryTerm>に残らないようにします。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          <GlossaryTerm name="build">ビルド</GlossaryTerm>ログや<GlossaryTerm name="job">ジョブ</GlossaryTerm>履歴は共有されやすく、<GlossaryTerm name="secret">シークレット</GlossaryTerm>が平文で出ていると漏洩につながります。多くの CI では「secret」を設定するとログでマスクされるため、その仕組みを正しく使う必要があります。
+          <GlossaryTerm name="build">ビルド</GlossaryTerm><GlossaryTerm name="logging">ログ</GlossaryTerm>や<GlossaryTerm name="job">ジョブ</GlossaryTerm>履歴は共有されやすく、<GlossaryTerm name="secret">シークレット</GlossaryTerm>が平文で出ていると漏洩につながります。多くの CI では「secret」を設定すると<GlossaryTerm name="logging">ログ</GlossaryTerm>でマスクされるため、その仕組みを正しく使う必要があります。
         </p>
       </div>,
       {
