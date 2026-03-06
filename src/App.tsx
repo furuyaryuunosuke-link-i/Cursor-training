@@ -21,6 +21,7 @@ import { PythonStepView } from './components/panels/PythonStepView'
 import { NodePanel } from './components/panels/NodePanel'
 import { NodeStepView } from './components/panels/NodeStepView'
 import { GlossaryPanel } from './components/panels/GlossaryPanel'
+import { HomePanel } from './components/panels/HomePanel'
 import { GlossaryNavigationProvider } from './contexts/GlossaryNavigationContext'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
@@ -33,6 +34,7 @@ import { isValidPythonStepId } from './data/pythonSteps'
 import { isValidNodeStepId } from './data/nodejsSteps'
 
 const TAB_STORAGE_KEY = 'cursor-training-active-tab'
+const HOME_HASH_PREFIX = '#home'
 const INTRO_HASH_PREFIX = '#intro'
 const INTERMEDIATE_HASH_PREFIX = '#intermediate'
 const ADVANCED_HASH_PREFIX = '#advanced'
@@ -128,6 +130,7 @@ function parseNodeStepIdFromHash(): string | null {
 function getTabFromHash(): TabId | null {
   if (typeof window === 'undefined') return null
   const h = window.location.hash
+  if (h.startsWith(HOME_HASH_PREFIX)) return 'home'
   if (h.startsWith(INTRO_HASH_PREFIX)) return 'intro'
   if (h.startsWith(INTERMEDIATE_HASH_PREFIX)) return 'intermediate'
   if (h.startsWith(ADVANCED_HASH_PREFIX)) return 'advanced'
@@ -142,7 +145,7 @@ function getTabFromHash(): TabId | null {
 }
 
 function App() {
-  const [activeTab, setActiveTab] = useState<TabId>('intro')
+  const [activeTab, setActiveTab] = useState<TabId>('home')
   const [isDark, setIsDark] = useState(true)
   const [introStepId, setIntroStepId] = useState<string | null>(parseIntroStepIdFromHash)
   const [intermediateStepId, setIntermediateStepId] = useState<string | null>(
@@ -181,6 +184,7 @@ function App() {
     if (
       stored &&
       [
+        'home',
         'intro',
         'intermediate',
         'advanced',
@@ -375,6 +379,15 @@ function App() {
       : PYTHON_HASH_PREFIX
   }
 
+  const handleHomeNavigateTab = (tab: TabId) => {
+    setActiveTab(tab)
+  }
+
+  const handleHomeStartIntroFromBeginning = () => {
+    setActiveTab('intro')
+    handleIntroNavigateToStep('1-1')
+  }
+
   const handleNodeStepSelect = (stepId: string) => {
     flushSync(() => setNodeStepId(stepId))
     window.location.hash = NODEJS_HASH_PREFIX + '/' + stepId
@@ -395,6 +408,12 @@ function App() {
         isDark={isDark}
         onThemeToggle={handleThemeToggle}
       >
+      {activeTab === 'home' && (
+        <HomePanel
+          onNavigateTab={handleHomeNavigateTab}
+          onStartIntroFromBeginning={handleHomeStartIntroFromBeginning}
+        />
+      )}
       {activeTab === 'intro' &&
         (introStepId ? (
           <IntroStepView

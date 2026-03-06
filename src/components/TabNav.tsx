@@ -1,4 +1,5 @@
 export type TabId =
+  | 'home'
   | 'intro'
   | 'intermediate'
   | 'advanced'
@@ -11,6 +12,7 @@ export type TabId =
   | 'glossary'
 
 const TABS: { id: TabId; label: string }[] = [
+  { id: 'home', label: 'Home' },
   { id: 'intro', label: '入門' },
   { id: 'intermediate', label: '中級' },
   { id: 'advanced', label: '上級' },
@@ -40,6 +42,24 @@ type TabNavProps = {
 export function TabNav({ activeTab, onTabChange }: TabNavProps) {
   return (
     <nav className="flex flex-col gap-6" aria-label="メイン">
+      <div className="flex flex-col gap-1">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'home'}
+          aria-controls="panel-home"
+          id="tab-home"
+          className={
+            'w-full text-left px-4 py-2.5 rounded-lg font-semibold text-sm transition-colors focus-visible:ring-2 focus-visible:ring-white/30 dark:focus-visible:ring-white/20 focus-visible:ring-inset outline-none ' +
+            (activeTab === 'home'
+              ? 'bg-white/80 dark:bg-white/10 text-neutral-900 dark:text-white border border-white/60 dark:border-white/25'
+              : 'text-neutral-700 dark:text-neutral-300 hover:bg-white/50 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white border border-transparent')
+          }
+          onClick={() => onTabChange('home')}
+        >
+          Home
+        </button>
+      </div>
       {TAB_GROUPS.map((group) => (
         <div key={group.label} className="flex flex-col gap-1">
           <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
