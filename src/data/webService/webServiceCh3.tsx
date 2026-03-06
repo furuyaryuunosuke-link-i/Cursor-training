@@ -11,7 +11,7 @@ export const WEB_SERVICE_CHAPTER_3: WebServiceChapter = {
       'デプロイの流れ（手動・Git push 連動・CI/CD のイメージ）',
       <div className="space-y-4">
         <p>
-          コードを本番に届ける<strong><GlossaryTerm name="deploy">デプロイ</GlossaryTerm>の流れ</strong>を押さえます。手動でサーバーにアップロードする方法、Git の<GlossaryTerm name="push">push</GlossaryTerm>に連動して自動デプロイする方法、<GlossaryTerm name="ci">CI</GlossaryTerm>/<GlossaryTerm name="cd">CD</GlossaryTerm> でテストを通したあとに自動で本番に反映する方法の違いを理解します。
+          コードを本番に届ける<strong><GlossaryTerm name="deploy">デプロイ</GlossaryTerm>の流れ</strong>を押さえます。手動で<GlossaryTerm name="server">サーバー</GlossaryTerm>にアップロードする方法、Git の<GlossaryTerm name="push">push</GlossaryTerm>に連動して自動デプロイする方法、<GlossaryTerm name="ci">CI</GlossaryTerm>/<GlossaryTerm name="cd">CD</GlossaryTerm> でテストを通したあとに自動で本番に反映する方法の違いを理解します。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>

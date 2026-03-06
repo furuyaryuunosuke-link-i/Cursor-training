@@ -50,7 +50,7 @@ export const FRONTEND_CHAPTER_3: FrontendChapter = {
         <p>
           <GlossaryTerm name="css">CSS</GlossaryTerm> 変数や<GlossaryTerm name="tailwind">Tailwind</GlossaryTerm>などで、
           <strong>色・余白・フォント</strong>を共通化し、<GlossaryTerm name="component">コンポーネント</GlossaryTerm>間で一貫した見た目にします。
-          ボタン・カードをコンポーネント化して<GlossaryTerm name="cssClass">class</GlossaryTerm>をまとめて渡すと、同じスタイルを何度も書かずに済みます。
+          ボタン・カードを<GlossaryTerm name="component">コンポーネント</GlossaryTerm>化して<GlossaryTerm name="cssClass">class</GlossaryTerm>をまとめて渡すと、同じスタイルを何度も書かずに済みます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>

@@ -97,7 +97,7 @@ export const ADVANCED_CHAPTER_5: AdvancedChapter = {
         </p>
       </div>,
       {
-        samplePrompt: `自分が作った自動化ツールについて、<GlossaryTerm name="readme">README</GlossaryTerm> に「動いているかどうかの確認方法」と「よくある失敗と対処」を書きたいです。
+        samplePrompt: `自分が作った自動化ツールについて、README に「動いているかどうかの確認方法」と「よくある失敗と対処」を書きたいです。
 
 チェックリストの例（ログの確認・出力ファイルの確認・設定の確認）と、<GlossaryTerm name="readme">README</GlossaryTerm> に書く項目のテンプレートを提案してください。`,
       }

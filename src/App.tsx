@@ -17,6 +17,7 @@ import { FrontendStepView } from './components/panels/FrontendStepView'
 import { GitHubPanel } from './components/panels/GitHubPanel'
 import { GitHubStepView } from './components/panels/GitHubStepView'
 import { GlossaryPanel } from './components/panels/GlossaryPanel'
+import { GlossaryNavigationProvider } from './contexts/GlossaryNavigationContext'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
 import { isValidAdvancedStepId } from './data/advancedSteps'
@@ -311,12 +312,13 @@ function App() {
   }
 
   return (
-    <Layout
-      activeTab={activeTab}
-      onTabChange={handleTabChange}
-      isDark={isDark}
-      onThemeToggle={handleThemeToggle}
-    >
+    <GlossaryNavigationProvider setActiveTab={(tab) => setActiveTab(tab as TabId)}>
+      <Layout
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        isDark={isDark}
+        onThemeToggle={handleThemeToggle}
+      >
       {activeTab === 'intro' &&
         (introStepId ? (
           <IntroStepView
@@ -382,6 +384,7 @@ function App() {
         ))}
       {activeTab === 'glossary' && <GlossaryPanel />}
     </Layout>
+    </GlossaryNavigationProvider>
   )
 }
 

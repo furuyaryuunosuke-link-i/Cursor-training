@@ -60,11 +60,11 @@ export const WEB_SERVICE_CHAPTER_2: WebServiceChapter = {
       '実行環境の前提（ランタイム・メモリ・ディスク・環境変数の渡し方）',
       <div className="space-y-4">
         <p>
-          選んだ<GlossaryTerm name="hosting">ホスティング</GlossaryTerm>で、<strong>どの<GlossaryTerm name="runtime">ランタイム</GlossaryTerm>（Python のバージョンなど）・メモリ・<GlossaryTerm name="disk">ディスク</GlossaryTerm></strong>が使えるか、<GlossaryTerm name="environmentVariable">環境変数</GlossaryTerm>や<GlossaryTerm name="secret">シークレット</GlossaryTerm>をどう渡すかを確認します。PaaS では設定画面や YAML で指定することが多いです。
+          選んだ<GlossaryTerm name="hosting">ホスティング</GlossaryTerm>で、<strong>どの<GlossaryTerm name="runtime">ランタイム</GlossaryTerm>（Python のバージョンなど）・メモリ・<GlossaryTerm name="disk">ディスク</GlossaryTerm></strong>が使えるか、<GlossaryTerm name="environmentVariable">環境変数</GlossaryTerm>や<GlossaryTerm name="secret">シークレット</GlossaryTerm>をどう渡すかを確認します。PaaS では設定画面や <GlossaryTerm name="yaml">YAML</GlossaryTerm> で指定することが多いです。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          ローカルでは動くが本番では動かない、という事象の多くは<GlossaryTerm name="runtime">ランタイム</GlossaryTerm>や環境変数の違いが原因です。事前に前提を押さえておくと<GlossaryTerm name="deploy">デプロイ</GlossaryTerm>がスムーズになります。
+          ローカルでは動くが本番では動かない、という事象の多くは<GlossaryTerm name="runtime">ランタイム</GlossaryTerm>や<GlossaryTerm name="environmentVariable">環境変数</GlossaryTerm>の違いが原因です。事前に前提を押さえておくと<GlossaryTerm name="deploy">デプロイ</GlossaryTerm>がスムーズになります。
         </p>
       </div>,
       {

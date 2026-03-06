@@ -29,11 +29,11 @@ export const INTRO_CHAPTER_4: IntroChapter = {
           にアクセスしてログインします。
         </p>
         <p>
-          画面上で「New repository」から新しいリポジトリを作成します。リポジトリ名は任意です。<GlossaryTerm name="readme">README</GlossaryTerm>
-          や .gitignore は、既にローカルにファイルがある場合は追加しなくて構いません。
+          画面上で「New repository」から新しい<GlossaryTerm name="repository">リポジトリ</GlossaryTerm>を作成します。<GlossaryTerm name="repository">リポジトリ</GlossaryTerm>名は任意です。<GlossaryTerm name="readme">README</GlossaryTerm>
+          や <GlossaryTerm name="gitignore">.gitignore</GlossaryTerm> は、既にローカルにファイルがある場合は追加しなくて構いません。
         </p>
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          作成後、リポジトリの URL（例：https://github.com/your-username/your-repo.git）を控えておきます。次のステップで使います。
+          作成後、<GlossaryTerm name="repository">リポジトリ</GlossaryTerm>の URL（例：https://github.com/your-username/your-repo.git）を控えておきます。次のステップで使います。
         </p>
       </div>,
       {
@@ -53,17 +53,17 @@ export const INTRO_CHAPTER_4: IntroChapter = {
             {code('git init')}
           </li>
           <li>
-            <strong>リモートを追加</strong>（URL は自分のリポジトリに置き換える）
+            <strong><GlossaryTerm name="remote">リモート</GlossaryTerm>を追加</strong>（URL は自分の<GlossaryTerm name="repository">リポジトリ</GlossaryTerm>に置き換える）
             <br />
             {code('git remote add origin https://github.com/your-username/your-repo.git')}
           </li>
           <li>
-            <strong>全ファイルをステージ</strong>
+            <strong>全ファイルを<GlossaryTerm name="stage">ステージ</GlossaryTerm></strong>
             <br />
             {code('git add .')}
           </li>
           <li>
-            <strong>コミット</strong>
+            <strong><GlossaryTerm name="commit">コミット</GlossaryTerm></strong>
             <br />
             {code('git commit -m "Initial commit: 今日のやることページ"')}
           </li>
@@ -85,7 +85,7 @@ export const INTRO_CHAPTER_4: IntroChapter = {
       '4-3',
       'プッシュと公開',
       <div className="space-y-4">
-        <p>main ブランチでプッシュします。</p>
+        <p>main <GlossaryTerm name="branch">ブランチ</GlossaryTerm>で<GlossaryTerm name="push">プッシュ</GlossaryTerm>します。</p>
         <ol>
           <li>
             {code('git branch -M main')}
@@ -95,12 +95,12 @@ export const INTRO_CHAPTER_4: IntroChapter = {
           </li>
         </ol>
         <p>
-          プッシュが成功すると、<GlossaryTerm name="github">GitHub</GlossaryTerm> のリポジトリページにファイルが反映されます。
+          <GlossaryTerm name="push">プッシュ</GlossaryTerm>が成功すると、<GlossaryTerm name="github">GitHub</GlossaryTerm> の<GlossaryTerm name="repository">リポジトリ</GlossaryTerm>ページにファイルが反映されます。
         </p>
         <h3>任意：<GlossaryTerm name="githubPages">GitHub Pages</GlossaryTerm> で公開</h3>
         <p className="text-sm">
-          リポジトリの Settings → Pages から、Source を「Deploy from a branch」にし、branch を
-          main、フォルダを / (root) または /docs にすると、静的サイトが URL で公開されます。
+          <GlossaryTerm name="repository">リポジトリ</GlossaryTerm>の Settings → Pages から、<GlossaryTerm name="pagesSource">Source</GlossaryTerm> を「Deploy from a branch」にし、<GlossaryTerm name="branch">branch</GlossaryTerm> を
+          main、フォルダを / (root) または /docs にすると、<GlossaryTerm name="staticSite">静的サイト</GlossaryTerm>が URL で公開されます。
         </p>
       </div>,
       {
@@ -115,7 +115,7 @@ export const INTRO_CHAPTER_4: IntroChapter = {
       <div className="space-y-4">
         <p>
           ここまでで、<GlossaryTerm name="cursor">Cursor</GlossaryTerm> を使ってシンプルなページを作り、
-          見た目を整え、<GlossaryTerm name="github">GitHub</GlossaryTerm> にプッシュするところまで到達しました。
+          見た目を整え、<GlossaryTerm name="github">GitHub</GlossaryTerm> に<GlossaryTerm name="push">プッシュ</GlossaryTerm>するところまで到達しました。
         </p>
         <p>
           もしまだうまくいっていない箇所があれば、気になっている画面のスクリーンショットやエラーメッセージを

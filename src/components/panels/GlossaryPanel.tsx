@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState, type ReactElement } from 'react'
 import {
   getGlossaryEntries,
   GLOSSARY_CATEGORIES,
   GLOSSARY_TAGS,
+  isLinkableContext,
 } from '../../data/glossary'
 import { CustomSelect } from '../CustomSelect'
 import { GlassCard } from '../GlassCard'
@@ -43,6 +44,69 @@ function getGojuonRow(label: string): string {
   return 'その他'
 }
 
+type EntryForLinks = { key: string; label: string }
+
+/** 説明文中の他用語をクリックでスクロールするリンクに変換 */
+function descriptionWithTermLinks(
+  description: string,
+  currentKey: string,
+  entries: EntryForLinks[],
+  onTermClick: (key: string) => void
+): (string | ReactElement)[] {
+  const others = entries
+    .filter((e) => e.key !== currentKey && e.label.length > 0)
+    .sort((a, b) => b.label.length - a.label.length)
+  if (others.length === 0) return [description]
+  const result: (string | ReactElement)[] = []
+  let i = 0
+  let keyIdx = 0
+  while (i < description.length) {
+    let matched: { key: string; label: string } | null = null
+    for (const e of others) {
+      if (description.substring(i, i + e.label.length) === e.label) {
+        const prevChar = description[i - 1] ?? ''
+        const nextChar = description[i + e.label.length] ?? ''
+        if (isLinkableContext(e.label, prevChar, nextChar)) {
+          matched = e
+          break
+        }
+      }
+    }
+    if (matched) {
+      const k = keyIdx++
+      const termKey = matched.key
+      result.push(
+        <button
+          key={`link-${k}`}
+          type="button"
+          onClick={() => onTermClick(termKey)}
+          className="border-b border-dotted border-indigo-500 dark:border-indigo-400 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100/50 dark:hover:bg-indigo-900/30 rounded px-0.5 cursor-pointer"
+        >
+          {matched.label}
+        </button>
+      )
+      i += matched.label.length
+    } else {
+      result.push(description[i])
+      i += 1
+    }
+  }
+  const merged: (string | ReactElement)[] = []
+  let buf = ''
+  for (const x of result) {
+    if (typeof x === 'string') buf += x
+    else {
+      if (buf) {
+        merged.push(buf)
+        buf = ''
+      }
+      merged.push(x)
+    }
+  }
+  if (buf) merged.push(buf)
+  return merged
+}
+
 const initialQueryFromHash = (): string => {
   if (typeof window === 'undefined') return ''
   const params = new URLSearchParams(window.location.search)
@@ -66,6 +130,22 @@ export function GlossaryPanel() {
   }
 
   const entries = useMemo(() => getGlossaryEntries(), [])
+
+  // URL の ?term= で用語に飛んだとき、該当アコーディオンを開いてスクロール
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const termKey = params.get('term')
+    if (!termKey) return
+    const entry = entries.find((e) => e.key === termKey)
+    if (!entry) return
+    const groupId =
+      sortBy === 'category' ? entry.category : `gojuon-${getGojuonRow(entry.label)}`
+    setOpenCategoryIds((prev) => new Set([...prev, groupId]))
+    const t = setTimeout(() => {
+      document.getElementById(`term-${termKey}`)?.scrollIntoView({ behavior: 'smooth' })
+    }, 350)
+    return () => clearTimeout(t)
+  }, [entries, sortBy])
 
   const filteredAndSorted = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -106,6 +186,23 @@ export function GlossaryPanel() {
 
   const tagLabel = (id: string) =>
     GLOSSARY_TAGS.find((t) => t.id === id)?.label ?? id
+
+  const handleTermClick = (key: string) => {
+    const entry = entries.find((e) => e.key === key)
+    if (!entry) return
+    const groupId =
+      sortBy === 'category' ? entry.category : `gojuon-${getGojuonRow(entry.label)}`
+    const isVisible = filteredAndSorted.some((e) => e.key === key)
+    if (!isVisible) {
+      setSearch('')
+      setCategoryFilter('')
+      setSelectedTags(new Set())
+    }
+    setOpenCategoryIds((prev) => new Set([...prev, groupId]))
+    setTimeout(() => {
+      document.getElementById(`term-${key}`)?.scrollIntoView({ behavior: 'smooth' })
+    }, 400)
+  }
 
   const groupedByCategory =
     sortBy === 'category'
@@ -236,13 +333,15 @@ export function GlossaryPanel() {
                     <div className="border-t border-white/20 dark:border-white/10 px-2 py-3 space-y-4">
                       <ul className="space-y-4 list-none p-0 m-0">
                         {groupedByCategory[cat.id]?.map((entry) => (
-                          <li key={entry.key}>
+                          <li key={entry.key} id={`term-${entry.key}`} className="scroll-mt-[88px]">
                             <GlassCard className="p-5">
                               <h4 className="text-base font-semibold text-neutral-900 dark:text-white border-l-4 border-indigo-400 dark:border-indigo-400 pl-3">
                                 {entry.label}
                               </h4>
                               <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                                {entry.description}
+                                {descriptionWithTermLinks(entry.description, entry.key, entries, handleTermClick).map((node, i) => (
+                                  <Fragment key={i}>{node}</Fragment>
+                                ))}
                               </p>
                               {entry.tags.length > 0 && (
                                 <div className="mt-3 flex flex-wrap gap-1.5">
@@ -296,13 +395,15 @@ export function GlossaryPanel() {
                     <div className="border-t border-white/20 dark:border-white/10 px-2 py-3 space-y-4">
                       <ul className="space-y-4 list-none p-0 m-0">
                         {groupedByGojuon[row]?.map((entry) => (
-                          <li key={entry.key}>
+                          <li key={entry.key} id={`term-${entry.key}`} className="scroll-mt-[88px]">
                             <GlassCard className="p-5">
                               <h4 className="text-base font-semibold text-neutral-900 dark:text-white border-l-4 border-indigo-400 dark:border-indigo-400 pl-3">
                                 {entry.label}
                               </h4>
                               <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                                {entry.description}
+                                {descriptionWithTermLinks(entry.description, entry.key, entries, handleTermClick).map((node, i) => (
+                                  <Fragment key={i}>{node}</Fragment>
+                                ))}
                               </p>
                               {entry.tags.length > 0 && (
                                 <div className="mt-3 flex flex-wrap gap-1.5">
@@ -330,13 +431,15 @@ export function GlossaryPanel() {
       ) : (
         <ul className="space-y-4 list-none p-0 m-0">
           {filteredAndSorted.map((entry) => (
-            <li key={entry.key}>
+            <li key={entry.key} id={`term-${entry.key}`} className="scroll-mt-[88px]">
               <GlassCard className="p-5">
                 <h4 className="text-base font-semibold text-neutral-900 dark:text-white border-l-4 border-indigo-400 dark:border-indigo-400 pl-3">
                   {entry.label}
                 </h4>
                 <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                  {entry.description}
+                  {descriptionWithTermLinks(entry.description, entry.key, entries, handleTermClick).map((node, i) => (
+                    <Fragment key={i}>{node}</Fragment>
+                  ))}
                 </p>
                 {entry.tags.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1.5">

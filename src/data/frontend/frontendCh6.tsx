@@ -16,7 +16,7 @@ export const FRONTEND_CHAPTER_6: FrontendChapter = {
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          <GlossaryTerm name="url">URL</GlossaryTerm>と画面が対応していると、ブックマークや共有がしやすく、ブラウザの戻るボタンでも期待どおり動きます。小さいツールでも「一覧」「詳細」で URL を分けておくと便利です。
+          <GlossaryTerm name="url">URL</GlossaryTerm>と画面が対応していると、ブックマークや共有がしやすく、<GlossaryTerm name="browser">ブラウザ</GlossaryTerm>の戻るボタンでも期待どおり動きます。小さいツールでも「一覧」「詳細」で URL を分けておくと便利です。
         </p>
       </div>,
       {
@@ -28,12 +28,12 @@ export const FRONTEND_CHAPTER_6: FrontendChapter = {
       'ハッシュと履歴 API',
       <div className="space-y-4">
         <p>
-          <strong><GlossaryTerm name="hash">ハッシュ</GlossaryTerm>（#）を変える</strong>と画面を切り替えられ、<strong>ブラウザの戻る</strong>で前の画面に戻れます。
-          履歴 API（history.pushState）を使うと、ハッシュなしで同じことができますが、サーバー設定が必要な場合があります。
+          <strong><GlossaryTerm name="hash">ハッシュ</GlossaryTerm>（#）を変える</strong>と画面を切り替えられ、<strong><GlossaryTerm name="browser">ブラウザ</GlossaryTerm>の戻る</strong>で前の画面に戻れます。
+          履歴 API（history.pushState）を使うと、ハッシュなしで同じことができますが、<GlossaryTerm name="server">サーバー</GlossaryTerm>設定が必要な場合があります。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          ユーザーが「戻る」で前の画面に戻れると操作が自然になります。<GlossaryTerm name="hash">ハッシュ</GlossaryTerm>はサーバー設定なしで使えるため、社内ツールではハッシュベースのルーティングがよく使われます。
+          ユーザーが「戻る」で前の画面に戻れると操作が自然になります。<GlossaryTerm name="hash">ハッシュ</GlossaryTerm>は<GlossaryTerm name="server">サーバー</GlossaryTerm>設定なしで使えるため、社内ツールではハッシュベースのルーティングがよく使われます。
         </p>
       </div>,
       {
@@ -46,7 +46,7 @@ export const FRONTEND_CHAPTER_6: FrontendChapter = {
       <div className="space-y-4">
         <p>
           一覧→詳細→戻る、としたときに<strong>一覧のスクロール位置や<GlossaryTerm name="filter">フィルタ</GlossaryTerm>を残す</strong>考え方を押さえます。
-          state を URL や親コンポーネントに持っておく、あるいは一覧と詳細を同時にマウントして表示だけ切り替えるなどの方法があります。
+          <GlossaryTerm name="state">state</GlossaryTerm> を URL や親<GlossaryTerm name="component">コンポーネント</GlossaryTerm>に持っておく、あるいは一覧と詳細を同時にマウントして表示だけ切り替えるなどの方法があります。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>

@@ -50,7 +50,7 @@ export const GITHUB_CHAPTER_5: GitHubChapter = {
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          コードに秘密を書くと漏洩の原因になります。Secrets に置いてワークフローからだけ参照すると、安全にデプロイや外部 API 連携ができます。
+          <GlossaryTerm name="code">コード</GlossaryTerm>に秘密を書くと漏洩の原因になります。Secrets に置いてワークフローからだけ参照すると、安全にデプロイや外部 API 連携ができます。
         </p>
       </div>,
       {

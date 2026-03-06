@@ -60,11 +60,11 @@ export const SECURITY_CHAPTER_2: SecurityChapter = {
       'ファイルアップロードと個人情報（拡張子・MIME・PII の取り扱い）',
       <div className="space-y-4">
         <p>
-          ファイルアップロードでは、<strong><GlossaryTerm name="extension">拡張子</GlossaryTerm>・<GlossaryTerm name="mimeType">MIME タイプ</GlossaryTerm>・内容</strong>を検証し、実行可能ファイルやスクリプトを拒否します。個人情報（<GlossaryTerm name="pii">PII</GlossaryTerm>）を含むデータは、保存場所・アクセス制御・ログに出すかどうかを決めておきます。
+          ファイルアップロードでは、<strong><GlossaryTerm name="extension">拡張子</GlossaryTerm>・<GlossaryTerm name="mimeType">MIME タイプ</GlossaryTerm>・内容</strong>を検証し、実行可能ファイルやスクリプトを拒否します。個人情報（<GlossaryTerm name="pii">PII</GlossaryTerm>）を含むデータは、保存場所・アクセス制御・<GlossaryTerm name="logging">ログ</GlossaryTerm>に出すかどうかを決めておきます。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          悪意あるファイルのアップロードや、個人情報の漏洩は監査・法規制で重大な指摘になります。アップロード先の<GlossaryTerm name="path">パス</GlossaryTerm>と権限、ログに <GlossaryTerm name="pii">PII</GlossaryTerm> を出さないことも重要です。
+          悪意あるファイルのアップロードや、個人情報の漏洩は監査・法規制で重大な指摘になります。アップロード先の<GlossaryTerm name="path">パス</GlossaryTerm>と権限、<GlossaryTerm name="logging">ログ</GlossaryTerm>に <GlossaryTerm name="pii">PII</GlossaryTerm> を出さないことも重要です。
         </p>
       </div>,
       {

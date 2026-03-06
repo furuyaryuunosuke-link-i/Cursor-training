@@ -14,11 +14,11 @@ export const SECURITY_CHAPTER_1: SecurityChapter = {
           パスワードや<GlossaryTerm name="token">トークン</GlossaryTerm>、<GlossaryTerm name="apiKey">API キー</GlossaryTerm>は
           <GlossaryTerm name="envFile">.env ファイル</GlossaryTerm>や
           <GlossaryTerm name="environmentVariable">環境変数</GlossaryTerm>に置き、
-          <GlossaryTerm name="code">コード</GlossaryTerm>内に直接書かないようにします。.env は .gitignore に含め、チームでは .env.example で必要なキー名だけ共有します。
+          <GlossaryTerm name="code">コード</GlossaryTerm>内に直接書かないようにします。.env は <GlossaryTerm name="gitignore">.gitignore</GlossaryTerm> に含め、チームでは .env.example で必要なキー名だけ共有します。
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          秘密情報をコードに書くと、Git にコミットしたときにリポジトリに残り、漏洩の原因になります。<GlossaryTerm name="enterprise">エンタープライズ</GlossaryTerm>の監査では「<GlossaryTerm name="secret">シークレット</GlossaryTerm>が<GlossaryTerm name="source">ソース</GlossaryTerm>に含まれていないか」がチェックされます。
+          秘密情報を<GlossaryTerm name="code">コード</GlossaryTerm>に書くと、<GlossaryTerm name="git">Git</GlossaryTerm> に<GlossaryTerm name="commit">コミット</GlossaryTerm>したときに<GlossaryTerm name="repository">リポジトリ</GlossaryTerm>に残り、漏洩の原因になります。<GlossaryTerm name="enterprise">エンタープライズ</GlossaryTerm>の監査では「<GlossaryTerm name="secret">シークレット</GlossaryTerm>が<GlossaryTerm name="source">ソース</GlossaryTerm>に含まれていないか」がチェックされます。
         </p>
       </div>,
       {

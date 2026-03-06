@@ -18,7 +18,7 @@ export const FRONTEND_CHAPTER_2: FrontendChapter = {
         <h3>なぜこのステップが必要か</h3>
         <p>
           業務ツールではフォームが多く、入力ミスを防ぐために必須チェック・形式チェックが必要です。
-          フロントで一度チェックすると、ユーザーにすぐフィードバックできます。
+          <GlossaryTerm name="frontend">フロント</GlossaryTerm>で一度チェックすると、ユーザーにすぐフィードバックできます。
         </p>
       </div>,
       {
@@ -57,7 +57,7 @@ export const FRONTEND_CHAPTER_2: FrontendChapter = {
         </p>
       </div>,
       {
-        samplePrompt: `React で、バリデーションエラーを各入力欄の直下に表示し、エラーがある入力には枠を赤くするスタイルを当てたいです。<GlossaryTerm name="state">state</GlossaryTerm>で errors を管理する例を教えてください。`,
+        samplePrompt: `React で、バリデーションエラーを各入力欄の直下に表示し、エラーがある入力には枠を赤くするスタイルを当てたいです。state で errors を管理する例を教えてください。`,
       }
     ),
     step(

@@ -17,7 +17,7 @@ export const WEB_SERVICE_CHAPTER_1: WebServiceChapter = {
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          同じ処理でも「誰が・どこから」使うかで、<GlossaryTerm name="deploy">デプロイ</GlossaryTerm>や認証・<GlossaryTerm name="config">設定</GlossaryTerm>の考え方が変わります。
+          同じ処理でも「誰が・どこから」使うかで、<GlossaryTerm name="deploy">デプロイ</GlossaryTerm>や<GlossaryTerm name="authentication">認証</GlossaryTerm>・<GlossaryTerm name="config">設定</GlossaryTerm>の考え方が変わります。
           サービス化すると、チームで共有したり、スケジュール実行しやすくなります。
         </p>
       </div>,
@@ -50,7 +50,7 @@ export const WEB_SERVICE_CHAPTER_1: WebServiceChapter = {
         </p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          そのまま公開すると、意図しない人が触れたりデータが見えたりする危険があります。最小限の認証やネットワークの前提を決めておくと、安全にサービス化できます。
+          そのまま公開すると、意図しない人が触れたりデータが見えたりする危険があります。最小限の<GlossaryTerm name="authentication">認証</GlossaryTerm>やネットワークの前提を決めておくと、安全にサービス化できます。
         </p>
       </div>,
       {

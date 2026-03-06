@@ -66,7 +66,7 @@ export const INTRO_CHAPTER_3: IntroChapter = {
 - テーマ切替ボタンでライト/ダークを切り替える（body などにクラスを付け替え）
 - タスク一覧とテーマ設定を localStorage に保存し、ページをリロードしても復元する
 
-既存のコードを読んだうえで、足りない部分を追記・整理する形で実装してほしいです。`,
+既存の<GlossaryTerm name="code">コード</GlossaryTerm>を読んだうえで、足りない部分を追記・整理する形で実装してほしいです。`,
       }
     ),
     step(

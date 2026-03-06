@@ -548,6 +548,43 @@ export const GLOSSARY_META: Record<string, { category: string; tags: string[] }>
   swagger: { category: 'webService', tags: ['tool'] },
 }
 
+/**
+ * 用語集説明文でラベルをリンクにするときの文脈ルール（表示名 → 除外条件）。
+ * 前後の文字がここに含まれるときはリンクにしない（別語の一部とみなす）。
+ */
+const GLOSSARY_LINK_CONTEXT: Record<
+  string,
+  { precededBy?: string[]; followedBy?: string[] }
+> = {
+  ログ: { precededBy: ['ブ', 'プ'], followedBy: ['ア', 'ラ'] }, // ブログ, ログアウト, プログラミング（プ＋ログ＋ラ）
+  コード: { precededBy: ['ー'] }, // バーコード
+  パス: { followedBy: ['ワ'] }, // パスワード
+  ソース: { precededBy: ['リ'] }, // リソース
+  タグ: { precededBy: ['ュ', 'ッ'] }, // ハッシュタグ（ュ）, タグ付けの「付」は後なので別語
+  マージ: { followedBy: ['ャ'] }, // マージャー
+  ポート: { precededBy: ['レ', 'サ', 'ス', 'ト', 'ン', 'ク'] }, // レポート, サポート, エクスポート, インポート, トランスポート
+}
+
+/** 説明文中の label が prevChar/nextChar の文脈でリンクしてよいか */
+export function isLinkableContext(
+  label: string,
+  prevChar: string,
+  nextChar: string
+): boolean {
+  const ctx = GLOSSARY_LINK_CONTEXT[label]
+  if (ctx?.precededBy?.includes(prevChar)) return false
+  if (ctx?.followedBy?.includes(nextChar)) return false
+  // 英単語: 直前に小文字があるときは別語の一部とみなす（API, Node など）
+  if (prevChar >= 'a' && prevChar <= 'z') {
+    if (['API', 'Node', 'GET', 'POST', 'CI', 'CD'].includes(label)) return false
+  }
+  // GET: budget, target などの -get の部分をリンクしない
+  if (label === 'GET' && ['d', 'r', 'g'].includes(prevChar)) return false
+  // state: estate, statement などの一部をリンクしない
+  if (label === 'state' && (prevChar === 'e' || nextChar === 'm')) return false
+  return true
+}
+
 /** 用語の表示名を返す（ラベルがなければ key をそのまま返す） */
 export function getGlossaryDisplayName(key: string): string {
   return GLOSSARY_LABELS[key] ?? key

@@ -17,7 +17,7 @@ export const ADVANCED_CHAPTER_1: AdvancedChapter = {
         <ul>
           <li>エントリポイント（起動用のスクリプトや <GlossaryTerm name="api">API</GlossaryTerm> サーバ）</li>
           <li>画面（<GlossaryTerm name="html">HTML</GlossaryTerm> / JS）と<GlossaryTerm name="backend">バックエンド</GlossaryTerm>のつながり</li>
-          <li>設定ファイル・認証・<GlossaryTerm name="logging">ログ</GlossaryTerm>の置き場所</li>
+          <li>設定ファイル・<GlossaryTerm name="authentication">認証</GlossaryTerm>・<GlossaryTerm name="logging">ログ</GlossaryTerm>の置き場所</li>
         </ul>
         <h3>なぜこのステップが必要か</h3>
         <p>
@@ -63,7 +63,7 @@ export const ADVANCED_CHAPTER_1: AdvancedChapter = {
         <p>「機密情報はどこに置いているか」「失敗時にどこに<GlossaryTerm name="logging">ログ</GlossaryTerm>が出るか」をメモしておきます。</p>
         <h3>なぜこのステップが必要か</h3>
         <p>
-          <GlossaryTerm name="config">設定</GlossaryTerm>や認証を誤ると動かなくなったり、<GlossaryTerm name="logging">ログ</GlossaryTerm>の出し方を知らないとトラブル時に原因を追えません。
+          <GlossaryTerm name="config">設定</GlossaryTerm>や<GlossaryTerm name="authentication">認証</GlossaryTerm>を誤ると動かなくなったり、<GlossaryTerm name="logging">ログ</GlossaryTerm>の出し方を知らないとトラブル時に原因を追えません。
           役割を押さえておくと、自分で新しい連携や<GlossaryTerm name="config">設定</GlossaryTerm>を足すときに「どこを真似すればよいか」が分かります。
         </p>
       </div>,
@@ -81,7 +81,7 @@ export const ADVANCED_CHAPTER_1: AdvancedChapter = {
           画面上の<strong>「1つのボタン」</strong>を選び、クリックから<GlossaryTerm name="backend">バックエンド</GlossaryTerm>の処理・レスポンスまで、
           どのファイルのどの行（またはどの関数）に相当するかを実際に追ってメモします。
         </p>
-        <p><GlossaryTerm name="devTools">開発者ツール</GlossaryTerm>の<GlossaryTerm name="networkTab">ネットワークタブ</GlossaryTerm>や、<GlossaryTerm name="backend">バックエンド</GlossaryTerm>のログ出力を頼りにすると追いやすいです。</p>
+        <p><GlossaryTerm name="devTools">開発者ツール</GlossaryTerm>の<GlossaryTerm name="networkTab">ネットワークタブ</GlossaryTerm>や、<GlossaryTerm name="backend">バックエンド</GlossaryTerm>の<GlossaryTerm name="logging">ログ</GlossaryTerm>出力を頼りにすると追いやすいです。</p>
         <h3>なぜこのステップが必要か</h3>
         <p>
           「このボタンの挙動を変えたい」「ここにチェックを足したい」といった変更は、この 1 本の線が分かっていれば着手しやすくなります。

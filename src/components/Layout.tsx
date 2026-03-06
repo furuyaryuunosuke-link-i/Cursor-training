@@ -30,13 +30,10 @@ export function Layout({
       </div>
 
       <header className="fixed top-0 left-0 right-0 z-20 border-b border-slate-300 dark:border-slate-600 bg-white/70 dark:bg-white/5 backdrop-blur-xl min-h-[72px] flex items-center">
-        <div className="w-full max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <h1 className="text-xl font-bold text-neutral-900 dark:text-white">
-              Cursor実践トレーニング
-            </h1>
-            <TabNav activeTab={activeTab} onTabChange={onTabChange} />
-          </div>
+        <div className="w-full px-4 py-3 flex items-center justify-between gap-4">
+          <h1 className="text-xl font-bold text-neutral-900 dark:text-white">
+            Cursor実践トレーニング
+          </h1>
           <button
             type="button"
             onClick={onThemeToggle}
@@ -48,8 +45,16 @@ export function Layout({
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 pt-[88px] pb-12 relative z-10">
-        {children}
+      <aside className="fixed left-0 top-[72px] bottom-0 z-10 w-52 border-r border-slate-300/80 dark:border-slate-600/80 bg-white/50 dark:bg-white/5 backdrop-blur-sm overflow-y-auto">
+        <div className="p-3">
+          <TabNav activeTab={activeTab} onTabChange={onTabChange} />
+        </div>
+      </aside>
+
+      <main className="flex-1 min-h-[calc(100vh-72px)] pl-52 pr-4 pt-[88px] pb-12 relative z-0">
+        <div className="max-w-4xl mx-auto">
+          {children}
+        </div>
       </main>
     </div>
   )
