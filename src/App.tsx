@@ -18,8 +18,9 @@ import { GitHubPanel } from './components/panels/GitHubPanel'
 import { GitHubStepView } from './components/panels/GitHubStepView'
 import { PythonPanel } from './components/panels/PythonPanel'
 import { PythonStepView } from './components/panels/PythonStepView'
+import { NodePanel } from './components/panels/NodePanel'
+import { NodeStepView } from './components/panels/NodeStepView'
 import { GlossaryPanel } from './components/panels/GlossaryPanel'
-import { ToolPlaceholderPanel } from './components/panels/ToolPlaceholderPanel'
 import { GlossaryNavigationProvider } from './contexts/GlossaryNavigationContext'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
@@ -29,6 +30,7 @@ import { isValidWebServiceStepId } from './data/webServiceSteps'
 import { isValidFrontendStepId } from './data/frontendSteps'
 import { isValidGitHubStepId } from './data/githubSteps'
 import { isValidPythonStepId } from './data/pythonSteps'
+import { isValidNodeStepId } from './data/nodejsSteps'
 
 const TAB_STORAGE_KEY = 'cursor-training-active-tab'
 const INTRO_HASH_PREFIX = '#intro'
@@ -114,6 +116,15 @@ function parsePythonStepIdFromHash(): string | null {
   return isValidPythonStepId(stepId) ? stepId : null
 }
 
+function parseNodeStepIdFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const h = window.location.hash
+  if (h !== NODEJS_HASH_PREFIX && !h.startsWith(NODEJS_HASH_PREFIX + '/')) return null
+  if (h === NODEJS_HASH_PREFIX || h === NODEJS_HASH_PREFIX + '/') return null
+  const stepId = h.slice(NODEJS_HASH_PREFIX.length + 1)
+  return isValidNodeStepId(stepId) ? stepId : null
+}
+
 function getTabFromHash(): TabId | null {
   if (typeof window === 'undefined') return null
   const h = window.location.hash
@@ -154,6 +165,9 @@ function App() {
   )
   const [pythonStepId, setPythonStepId] = useState<string | null>(
     parsePythonStepIdFromHash
+  )
+  const [nodeStepId, setNodeStepId] = useState<string | null>(
+    parseNodeStepIdFromHash
   )
 
   // 直接URLで開いたとき（#intro/1-1, #advanced/2-1 など）は hash からタブを決定
@@ -256,6 +270,14 @@ function App() {
     return () => window.removeEventListener('hashchange', sync)
   }, [activeTab])
 
+  useEffect(() => {
+    if (activeTab !== 'nodejs') return
+    const sync = () => setNodeStepId(parseNodeStepIdFromHash())
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [activeTab])
+
   const handleTabChange = (tab: TabId) => setActiveTab(tab)
   const handleThemeToggle = () => setIsDark((prev) => !prev)
 
@@ -353,6 +375,18 @@ function App() {
       : PYTHON_HASH_PREFIX
   }
 
+  const handleNodeStepSelect = (stepId: string) => {
+    flushSync(() => setNodeStepId(stepId))
+    window.location.hash = NODEJS_HASH_PREFIX + '/' + stepId
+  }
+
+  const handleNodeNavigateToStep = (stepId: string | null) => {
+    flushSync(() => setNodeStepId(stepId))
+    window.location.hash = stepId
+      ? NODEJS_HASH_PREFIX + '/' + stepId
+      : NODEJS_HASH_PREFIX
+  }
+
   return (
     <GlossaryNavigationProvider setActiveTab={(tab) => setActiveTab(tab as TabId)}>
       <Layout
@@ -433,7 +467,15 @@ function App() {
         ) : (
           <PythonPanel onStepSelect={handlePythonStepSelect} />
         ))}
-      {activeTab === 'nodejs' && <ToolPlaceholderPanel title="Node.js" />}
+      {activeTab === 'nodejs' &&
+        (nodeStepId ? (
+          <NodeStepView
+            stepId={nodeStepId}
+            onNavigateToStep={handleNodeNavigateToStep}
+          />
+        ) : (
+          <NodePanel onStepSelect={handleNodeStepSelect} />
+        ))}
       {activeTab === 'glossary' && <GlossaryPanel />}
     </Layout>
     </GlossaryNavigationProvider>
