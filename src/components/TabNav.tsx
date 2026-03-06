@@ -6,6 +6,7 @@ export type TabId =
   | 'webService'
   | 'frontend'
   | 'github'
+  | 'glossary'
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'intro', label: '入門' },
@@ -15,6 +16,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: 'webService', label: 'Webサービス' },
   { id: 'frontend', label: 'フロントエンド' },
   { id: 'github', label: 'GitHub' },
+  { id: 'glossary', label: '用語集' },
 ]
 
 type TabNavProps = {

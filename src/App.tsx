@@ -16,6 +16,7 @@ import { FrontendPanel } from './components/panels/FrontendPanel'
 import { FrontendStepView } from './components/panels/FrontendStepView'
 import { GitHubPanel } from './components/panels/GitHubPanel'
 import { GitHubStepView } from './components/panels/GitHubStepView'
+import { GlossaryPanel } from './components/panels/GlossaryPanel'
 import { isValidIntroStepId } from './data/introSteps'
 import { isValidIntermediateStepId } from './data/intermediateSteps'
 import { isValidAdvancedStepId } from './data/advancedSteps'
@@ -32,6 +33,7 @@ const SECURITY_HASH_PREFIX = '#security'
 const WEB_SERVICE_HASH_PREFIX = '#webService'
 const FRONTEND_HASH_PREFIX = '#frontend'
 const GITHUB_HASH_PREFIX = '#github'
+const GLOSSARY_HASH_PREFIX = '#glossary'
 
 function parseIntroStepIdFromHash(): string | null {
   if (typeof window === 'undefined') return null
@@ -106,6 +108,7 @@ function getTabFromHash(): TabId | null {
   if (h.startsWith(WEB_SERVICE_HASH_PREFIX)) return 'webService'
   if (h.startsWith(FRONTEND_HASH_PREFIX)) return 'frontend'
   if (h.startsWith(GITHUB_HASH_PREFIX)) return 'github'
+  if (h.startsWith(GLOSSARY_HASH_PREFIX)) return 'glossary'
   return null
 }
 
@@ -150,6 +153,7 @@ function App() {
         'webService',
         'frontend',
         'github',
+        'glossary',
       ].includes(stored)
     ) {
       setActiveTab(stored)
@@ -376,6 +380,7 @@ function App() {
         ) : (
           <GitHubPanel onStepSelect={handleGitHubStepSelect} />
         ))}
+      {activeTab === 'glossary' && <GlossaryPanel />}
     </Layout>
   )
 }
